@@ -1,10 +1,48 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Linking, Text, TouchableOpacity, View } from 'react-native';
+import { Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+
+
+
+
 
 
 export default function SeleccionarCultivos() {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = React.useState('');
+  let historialArray1: { url: string; fecha: string }[] = [{ url: "Historial Vacío", fecha: " " }] ;
+  const [historialArray, setHistorialArray] = React.useState(historialArray1); // Estado para forzar la re-renderización
+  const iniciarHistorial = async () => {
+    try {
+      const historial = await AsyncStorage.getItem('historial');
+      setHistorialArray(historial ? JSON.parse(historial) : []); // Actualiza el estado para re-renderizar)
+    } catch (error) {
+      console.log("Error al iniciar el historial:", error);
+    }
+  }
+
+  React.useEffect(() => {
+    iniciarHistorial();
+  }, []);
+
+  const guardarHistorial = async (url: string) => {
+    try {
+      const historial = await AsyncStorage.getItem('historial');
+  
+      setHistorialArray(historial ? JSON.parse(historial) : []); // Actualiza el estado para re-renderizar)
+
+      pushHistorialArray(url);
+      console.log("Historial actualizado:", historialArray);
+      await AsyncStorage.setItem('historial', JSON.stringify(historialArray));
+    } catch (error) {
+      console.log("Error al guardar el historial:", error);
+    }
+  }
+const pushHistorialArray = async (url: string) => {
+  setHistorialArray(prevArray => [...prevArray, { url, fecha: new Date().toISOString() }]);
+}
+
 
   const handleLinking = async (url: string) => {
     const supported = await Linking.canOpenURL(url);
@@ -17,29 +55,26 @@ export default function SeleccionarCultivos() {
 
   return (
     <View>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "rgb(143,157,126)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-        }}
-        onPress={() => router.push("/")}
-      >
-        <Text style={{ color: "white", fontSize: 18 }}>
-         Volver a pantalla Home
-        </Text>
-      </TouchableOpacity>
+      <Text style={{ color: 'green', fontSize: 24, fontWeight: "bold", textAlign: "center", marginTop: 20, marginBottom: 20 }}>
+        SELECCIONAR CULTIVO
+      </Text>
+
       <TouchableOpacity
         style={{
           backgroundColor: "rgba(226, 172, 33, 1)",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+          marginLeft: 20,
+          marginRight: 20,
+          marginTop: 20,
+          marginBottom: 10,
+        
+         
         }}
         onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/maizMachine")}
       >
-        <Text style={{ color: "lightorange", fontSize: 18 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          MAIZ
         </Text>
       </TouchableOpacity>
@@ -49,10 +84,13 @@ export default function SeleccionarCultivos() {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
         }}
-        onPress={() => router.push("/")}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
       >
-        <Text style={{ color: "lightgreen", fontSize: 18 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          TRIGO
         </Text>
       </TouchableOpacity>
@@ -62,10 +100,13 @@ export default function SeleccionarCultivos() {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+        marginBottom: 10,
         }}
-        onPress={() => router.push("/")}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/sojaML")}
       >
-        <Text style={{ color: "green", fontSize: 18 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          SOJA
         </Text>
       </TouchableOpacity>
@@ -75,11 +116,14 @@ export default function SeleccionarCultivos() {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
         }}
-        onPress={() => router.push("/")}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
       >
-        <Text style={{ color: "yellow", fontSize: 18 }}>
-         CEBADA
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+       TOMATE
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -88,11 +132,15 @@ export default function SeleccionarCultivos() {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
         }}
-        onPress={() => router.push("/")}
+
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
       >
-        <Text style={{ color: "green", fontSize: 18 }}>
-         YERBA MATE
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "white", textAlign: "center" }}>
+      PAPA
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -101,10 +149,13 @@ export default function SeleccionarCultivos() {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
         }}
-        onPress={() => router.push("/")}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
       >
-        <Text style={{ color: "violet", fontSize: 18 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "white", textAlign: "center" }}>
         UVA
         </Text>
       </TouchableOpacity>
@@ -114,11 +165,30 @@ export default function SeleccionarCultivos() {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
         }}
-        onPress={() => router.push("/")}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
       >
-        <Text style={{ color: "yellow", fontSize: 18 }}>
-        GIRASOL
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+        CEREZA
+        </Text>
+      </TouchableOpacity>
+       <TouchableOpacity
+        style={{
+          backgroundColor: "rgba(198, 106, 19, 1)",
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
+        }}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+        MANZANA
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -127,40 +197,77 @@ export default function SeleccionarCultivos() {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
         }}
-        onPress={() => router.push("/")}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
       >
-        <Text style={{ color: "yellow", fontSize: 18 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          CITRICOS
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "rgba(198, 106, 19, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-        }}
-        onPress={() => router.push("/")}
-      >
-        <Text style={{ color: "orange", fontSize: 18 }}>
-         MANI
-        </Text>
-      </TouchableOpacity>
+     
       <TouchableOpacity
         style={{
           backgroundColor: "rgba(228, 239, 216, 1)",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          
+        }}
+        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+      FRUTILLA
+        </Text>
+      </TouchableOpacity>
+
+       <TouchableOpacity
+        style={{
+          backgroundColor: "rgb(143,157,126)",
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 6,
+          marginLeft: "25%",
+          marginRight: "25%",
+          marginTop: 20,
+          marginBottom: 20,
         }}
         onPress={() => router.push("/")}
       >
-        <Text style={{ color: "white", fontSize: 18 }}>
-        ARROZ
+        <Text style={{ color: "white", fontSize: 18, textAlign: "center", fontWeight: "bold" }}>
+        VOLVER A PANTALLA HOME
         </Text>
       </TouchableOpacity>
-     
+
+      <TextInput
+        placeholder="Guardar en Historial..."
+        value={searchTerm}
+        onChangeText={(text) => setSearchTerm(text)}
+        style={{
+          borderWidth: 1,
+          borderColor: "gray",
+          borderRadius: 6,
+          padding: 10,
+          margin: 20,
+        }}
+        onSubmitEditing={() => {
+          guardarHistorial(searchTerm);
+          setSearchTerm("");
+        }}
+      />
+    
+      <ScrollView contentContainerStyle={{ margin: 20, maxHeight: 200, justifyContent: 'center', alignItems: 'center' }}>
+        {historialArray.map((item, index) => (
+          <TouchableOpacity key={index} onPress={() => Linking.openURL(item.url)}>
+            <Text>{item.url} - {item.fecha}</Text>  
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </View>
   );
+
 }
