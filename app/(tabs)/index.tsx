@@ -33,6 +33,8 @@ export default function HomeScreen() {
 
       <Button title="Seleccione el cultivo" onPress={() => router.push("/SeleccionarCultivos")} />
 
+      <Button title="Login" onPress={() => router.push("/login")} />
+        
     </View>
 
 
