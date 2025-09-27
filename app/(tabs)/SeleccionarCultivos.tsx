@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Linking, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 
 
 
@@ -54,10 +54,23 @@ const pushHistorialArray = async (url: string) => {
   };
 
   return (
-    <View>
+    <ScrollView>
       <Text style={{ color: 'green', fontSize: 24, fontWeight: "bold", textAlign: "center", marginTop: 20, marginBottom: 20 }}>
+        
         SELECCIONAR CULTIVO
+  
       </Text>
+
+      <Text style={{ color: 'black', fontSize: 14, textAlign: "center", marginTop: 10, marginBottom: 10 }}>
+        En esta página podrás seleccionar el cultivo que deseas analizar.{'\n'}
+         Presiona el botón del cultivo elegido y en el siguiente paso, {'\n'}
+         te pedirá que subas una foto del cultivo afectado. {'\n'}
+         Presioná el botón de Summit y espera los resultados. {'\n'}
+        y posteriormente la aplicación te brindará un diagnóstico preciso y {'\n'}
+        recomendaciones para tratar la enfermedad detectada.{'\n'}
+
+      </Text>
+
 
       <TouchableOpacity
         style={{
@@ -267,7 +280,8 @@ const pushHistorialArray = async (url: string) => {
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </View>
+      
+    </ScrollView>
   );
 
 }

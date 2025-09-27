@@ -21,7 +21,8 @@ export default function Register() {
         const auth = getAuth();
         await createUserWithEmailAndPassword(auth, email, password);
         alert("Registro exitoso");
-        router.push("/");
+        router.push("/login");
+
         
       } catch (error) {
         setError("Registro fallado, vuelva a intentarlo" + error);

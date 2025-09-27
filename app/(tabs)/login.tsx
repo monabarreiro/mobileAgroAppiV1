@@ -16,7 +16,7 @@ export default function Login() {
     e.preventDefault();
     try{
       await signInWithEmailAndPassword(auth,email,password);
-      router.push("/");
+      router.push("/SeleccionarCultivos");
 
     }catch(error){
       if (error instanceof Error) {
