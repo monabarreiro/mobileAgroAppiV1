@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity } from 'react-native';
+
 
 
 
@@ -10,8 +11,10 @@ const [mostrarEnfermedad3, setMostrarEnfermedad3] = React.useState(false);
 const [mostrarEnfermedad4, setMostrarEnfermedad4] = React.useState(false);
 
   return (
-    <View style ={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
-      <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Enfermedades del Maíz</Text>
+    <ScrollView  contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
+    
+      <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}
+      >Enfermedades del Maíz</Text>
       <TouchableOpacity style={{ backgroundColor: '#b6eab8ff', padding: 10, borderRadius: 5 }} onPress={() => setMostrarEnfermedad1(!mostrarEnfermedad1)}>
         <Text style={{ fontSize: 18 ,fontWeight: 'bold'}}>1. Blight — Tizón foliar del maíz</Text>
         {mostrarEnfermedad1 && (
@@ -170,7 +173,8 @@ Consejos prácticos y consideraciones finales {"\n"}
 
         </Text>)}
       </TouchableOpacity>
-    </View>
+ 
+    </ScrollView>
   );
 }
 
