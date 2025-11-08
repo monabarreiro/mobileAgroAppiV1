@@ -11,10 +11,9 @@ export default function HomeScreen() {
   return (
     <ImageBackground
       source={require('./img/sojaregada.jpg')}
-      style={styles.imageBackground}
-    >
-
+      style={styles.imageBackground}>
       <View style={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
+
         <Image
           source={require('./img/logo_agroAppi.png')}
           style={{ width: 70, height: 50 }}

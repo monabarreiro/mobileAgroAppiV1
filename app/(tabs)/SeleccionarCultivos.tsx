@@ -1,10 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImageManipulator from 'expo-image-manipulator';
+import * as imagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Linking, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
-
-
-
 
 
 
@@ -13,6 +12,71 @@ export default function SeleccionarCultivos() {
   const [searchTerm, setSearchTerm] = React.useState('');
   let historialArray1: { url: string; fecha: string }[] = [{ url: "Historial Vacío", fecha: " " }] ;
   const [historialArray, setHistorialArray] = React.useState(historialArray1); // Estado para forzar la re-renderización
+  const [image, setImage] = React.useState<string | null>(null);
+  // Función para seleccionar una imagen de la galería
+  const [apiKey, setApiKey] = React.useState("AIzaSyB72DREydt7R2WdYu6jGjLXUJZvTjYI-zg");
+  const [labels, setLabels] = React.useState<string[]>([]);
+  
+  async function cloudVisionFetch(imageUri: string) {
+    const base64 = await ImageManipulator.manipulateAsync(
+      imageUri,
+      [{ resize: { width: 800 } }], // Redimensionar la imagen para reducir el tamaño
+      { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG, base64: true }
+    ).then(result => result.base64);
+    
+    try {
+      const response = await fetch(
+        `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            requests: [
+              {
+                image: { content: base64 },
+                features: [{ type: "WEB_DETECTION", maxResults: 5 }],
+              },
+            ],
+          }),
+        }
+      );
+    
+
+      const data = await response.json();
+      const labelAnnotations = data.responses?.[0]?.webDetection?.webEntities || [];
+      setLabels(labelAnnotations.map((l: any) => l.description));
+    } catch (e) {
+      console.error(e);
+      alert("Error analyzing image");
+    } }
+
+    function textoAGoogle(texto: string) {  
+      const url = `https://www.google.com/search?q=${encodeURIComponent(texto)}`;
+      Linking.openURL(url);
+    }
+
+  async function pickImage() {
+    // No permissions request is necessary for launching the image library
+    let result = await imagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (result.granted) {
+      let pickerResult = await imagePicker.launchImageLibraryAsync({
+        mediaTypes: imagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!pickerResult.canceled) {
+        setImage(pickerResult.assets[0].uri);
+
+        await cloudVisionFetch(pickerResult.assets[0].uri);
+
+      }
+    }
+  };
+  
+
   const iniciarHistorial = async () => {
     try {
       const historial = await AsyncStorage.getItem('historial');
@@ -85,7 +149,8 @@ const pushHistorialArray = async (url: string) => {
         
          
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/maizMachine")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=maiz`)}
+
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          MAIZ
@@ -101,7 +166,7 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
           marginBottom: 10,
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+         onPress={() => router.push(`/buscarImagen?cultivoId=trigo`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          TRIGO
@@ -117,7 +182,7 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
         marginBottom: 10,
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/sojaML")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=soja`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          SOJA
@@ -133,7 +198,7 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
           marginBottom: 10,
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=tomate`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
        TOMATE
@@ -150,7 +215,7 @@ const pushHistorialArray = async (url: string) => {
           marginBottom: 10,
         }}
 
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+         onPress={() => router.push(`/buscarImagen?cultivoId=papa`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "white", textAlign: "center" }}>
       PAPA
@@ -166,7 +231,7 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
           marginBottom: 10,
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=uva`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "white", textAlign: "center" }}>
         UVA
@@ -182,7 +247,7 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
           marginBottom: 10,
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=cereza`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
         CEREZA
@@ -198,7 +263,7 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
           marginBottom: 10,
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=manzana`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
         MANZANA
@@ -214,7 +279,7 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
           marginBottom: 10,
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=citricos`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
          CITRICOS
@@ -231,10 +296,63 @@ const pushHistorialArray = async (url: string) => {
           marginRight: 20,
           
         }}
-        onPress={() => handleLinking("https://huggingface.co/spaces/monabarreiro/MLMulticultivos")}
+        onPress={() => router.push(`/buscarImagen?cultivoId=frutilla`)}
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
       FRUTILLA
+        </Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity
+        style={{
+          backgroundColor: "rgba(228, 239, 216, 1)",
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          
+        }}
+        onPress={() => handleLinking("https://www.google.com/?olud=1")}  //PONER LINK A LENS AI AQUÍ
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+     
+   BUSCAR ENFERMEDADES CON LENS 
+        </Text>
+      </TouchableOpacity>
+       <TouchableOpacity
+        style={{
+          backgroundColor: "rgba(228, 239, 216, 1)",
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          
+        }}
+        onPress={() => router.push("/listadoCultivos")}  //PONER LINK A LENS AI AQUÍ
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+     Soluciones para tu resultado
+        </Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity
+        style={{
+          backgroundColor: "rgba(228, 239, 216, 1)",
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+          
+        }}
+        onPress={() => handleLinking("https://www.google.com/maps/search/agronomia/")}  //PONER LINK A LENS AI AQUÍ
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+     Busquedas de Agronomias cercanas a tu campo
         </Text>
       </TouchableOpacity>
 
@@ -272,7 +390,7 @@ const pushHistorialArray = async (url: string) => {
           setSearchTerm("");
         }}
       />
-    
+  
       <ScrollView contentContainerStyle={{ margin: 20, maxHeight: 200, justifyContent: 'center', alignItems: 'center' }}>
         {historialArray.map((item, index) => (
           <TouchableOpacity key={index} onPress={() => Linking.openURL(item.url)}>
@@ -285,3 +403,4 @@ const pushHistorialArray = async (url: string) => {
   );
 
 }
+
