@@ -125,7 +125,7 @@ const pushHistorialArray = async (url: string) => {
   
       </Text>
 
-      <Text style={{ color: 'black', fontSize: 14, textAlign: "center", marginTop: 10, marginBottom: 10 }}>
+      <Text style={{ color: 'black', fontSize: 18, textAlign: "center", marginTop: 10, marginBottom: 10 }}>
         En esta página podrás seleccionar el cultivo que deseas analizar.{'\n'}
          Presiona el botón del cultivo elegido y en el siguiente paso, {'\n'}
          te pedirá que subas una foto del cultivo afectado. {'\n'}
@@ -188,7 +188,9 @@ const pushHistorialArray = async (url: string) => {
          SOJA
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
+
+      
+     {/*  <TouchableOpacity
         style={{
           backgroundColor: "rgba(232, 227, 81, 1)",
           paddingVertical: 10,
@@ -203,8 +205,9 @@ const pushHistorialArray = async (url: string) => {
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
        TOMATE
         </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </TouchableOpacity> */}
+
+      {/* <TouchableOpacity
         style={{
           backgroundColor: "rgba(50, 87, 5, 1)",
           paddingVertical: 10,
@@ -220,7 +223,8 @@ const pushHistorialArray = async (url: string) => {
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "white", textAlign: "center" }}>
       PAPA
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
       <TouchableOpacity
         style={{
           backgroundColor: "rgba(102, 28, 231, 1)",
@@ -237,7 +241,8 @@ const pushHistorialArray = async (url: string) => {
         UVA
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
+
+      {/* <TouchableOpacity
         style={{
           backgroundColor: "rgba(234, 223, 16, 1)",
           paddingVertical: 10,
@@ -252,8 +257,10 @@ const pushHistorialArray = async (url: string) => {
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
         CEREZA
         </Text>
-      </TouchableOpacity>
-       <TouchableOpacity
+      </TouchableOpacity> */}
+
+
+      {/*  <TouchableOpacity
         style={{
           backgroundColor: "rgba(198, 106, 19, 1)",
           paddingVertical: 10,
@@ -268,7 +275,9 @@ const pushHistorialArray = async (url: string) => {
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
         MANZANA
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
+
       <TouchableOpacity
         style={{
           backgroundColor: "rgba(236, 239, 12, 1)",
@@ -286,7 +295,7 @@ const pushHistorialArray = async (url: string) => {
         </Text>
       </TouchableOpacity>
      
-      <TouchableOpacity
+     {/*  <TouchableOpacity
         style={{
           backgroundColor: "rgba(228, 239, 216, 1)",
           paddingVertical: 10,
@@ -302,7 +311,7 @@ const pushHistorialArray = async (url: string) => {
       FRUTILLA
         </Text>
       </TouchableOpacity>
-
+ */}
 
       <TouchableOpacity
         style={{

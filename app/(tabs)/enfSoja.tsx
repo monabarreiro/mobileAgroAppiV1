@@ -2,8 +2,6 @@ import React from 'react';
 import { ScrollView, Text, TouchableOpacity } from 'react-native';
 
 
-
-
 export default function EnfSoja() {
 const [mostrarEnfermedad1, setMostrarEnfermedad1] = React.useState(false);
 const [mostrarEnfermedad2, setMostrarEnfermedad2] = React.useState(false);

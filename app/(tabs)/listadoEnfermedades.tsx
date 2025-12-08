@@ -98,14 +98,17 @@ export default function ListadoEnfermedades() {
       }, [cultivoId])
     );
     
+  let styleExtra = { backgroundColor: '#f4ea53ff'};
 
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
       <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Listado de Enfermedades</Text>
       {enfermedades.map((enfermedad,index) => (
+        
         <TouchableOpacity
           key={enfermedad.id}
-          style={{ backgroundColor: '#b6eab8ff', padding: 10, borderRadius: 5, width: '80%', alignItems: 'center' }}
+
+          style={{backgroundColor: enfermedadId === String(index) ?  styleExtra.backgroundColor:'#b6eab8ff' , padding: 10, borderRadius: 5, width: '80%', alignItems: 'center' }}
           onPress={() => mostrarUno(index)}
         >
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{enfermedad.Titulo}</Text>

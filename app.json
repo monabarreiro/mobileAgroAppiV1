@@ -8,8 +8,12 @@
     "scheme": "mobileagroappi",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mobileagroappi.app",
+      "googleServicesFile": "./GoogleService-Info.plist"
+
     },
     "android": {
       "adaptiveIcon": {
@@ -33,7 +37,14 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "@react-native-firebase/app",
+        {
+          "iosGoogleServicesFile": "./GoogleService-Info.plist"
+        }
       ]
+ 
     ],
     "experiments": {
       "typedRoutes": true

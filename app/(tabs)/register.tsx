@@ -6,6 +6,8 @@ import { Button, Text, TextInput, View } from 'react-native';
 
 
 
+
+
 export default function Register() {
   const[email,setEmail]= React.useState("");
   const[password,setPassword]= React.useState("");
