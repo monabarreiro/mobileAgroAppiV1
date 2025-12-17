@@ -4,7 +4,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import * as imagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Linking, Text, TouchableOpacity, View } from 'react-native';
+import { Linking, Text, TouchableOpacity, View } from 'react-native'; // Modulos necesarios
 
 
 
@@ -17,8 +17,8 @@ export default function BuscarImagen() {
       const [labels, setLabels] = React.useState<string[]>([]);
       const [posiblesEnfermedades, setPosiblesEnfermedades] = React.useState<number[]>([]);
       const [textoPosiblesEnfermedades, setTextoPosiblesEnfermedades] = React.useState<string[]>([]);
-      const [diccionarioLimon, setDiccionarioLimon] = React.useState<string[][]>([
-    ["White patches", "Pantoea ananatis"], // Ejemplo de enfermedad 1
+      const [diccionarioMaiz, setdiccionarioMaiz] = React.useState<string[][]>([
+    ["White patches", "Pantoea ananatis"], // Ejemplo de enfermedad  Maiz 0
     ["Pathology", "Plant pathology"],
     ["Estrès hídric"],
     ["Plant diseases", "Blight"],
@@ -26,8 +26,58 @@ export default function BuscarImagen() {
     ["Río Cuarto"]
      
   ]); //
-      const route = useRoute();
-      const {cultivoId} = route.params  as {cultivoId: any | ""};
+const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
+    ["Acari", "Mite"], // Limon Enfermedaad Acaro de las Yemas  Limon 1 
+    ["Xanthomonas citri ", "Citrus canker"], // Limon Enferemedad2 Cancrosis
+    ["Chlorosis"],  // Limon Enfermedad3 Clorosis
+    ["Mealybug ", "Lepidoptera"], // Limon Enfermedad4 Cochinilla Minador de los Citricos
+    ["Diaphorina citri", "Citrus greening disease"], // Limon Enfermedad5 HLB
+    ["anthracnose"] // Limon Enfermedad6 Antracnosis
+     
+  ]); // 
+  const [diccionarioSoja, setdiccionarioSoja] = React.useState<string[][]>([
+    ["Septoria glycines", "Septoria"], // Mancha marron en sojaa Ejemplo de enfermedad 2.    Soja 2
+    ["Cercospora kikuchii", "Cercospora"],
+    ["Cercospora sojina", "Frogeye leaf spot"],// Mancha ojo de rana
+    ["", ""],
+    ["", ""],
+    [""]
+     
+  ]); // 
+    const [diccionarioTrigo, setdiccionarioTrigo] = React.useState<string[][]>([
+    ["", ""], // Ejemplo de enfermedad 2 Trigo 3 
+    ["", ""],
+    [""],
+    ["", ""],
+    ["", ""],
+    [""]
+     
+  ]); // 
+     const [diccionarioUva, setdiccionarioUva] = React.useState<string[][]>([
+    ["", ""], // Ejemplo de enfermedad 2Uva 4 
+    ["", ""],
+    [""],
+    ["", ""],
+    ["", ""],
+    [""]
+     
+  ]); // 
+      const [diccionarioCebada, setdiccionarioCebada] = React.useState<string[][]>([
+    ["", ""], // Ejemplo de enfermedad 2Cebada 5 
+    ["", ""],
+    [""],
+    ["", ""],
+    ["", ""],
+    [""]
+     
+  ]); // 
+  let listaDiccionarios: string[][][] = [diccionarioMaiz, diccionarioLimon, diccionarioSoja, diccionarioTrigo, diccionarioUva, diccionarioCebada];
+  let numeroCultivo: number = 0; // Maiz por defecto
+  
+  
+  
+  const route = useRoute();
+      let {cultivoId} = route.params  as {cultivoId: any | ""};
       async function generarEnlaceEnfermedad() { 
         console.log("Posibles enfermedades encontradas: ", posiblesEnfermedades);
         posiblesEnfermedades.forEach((index) => {
@@ -36,6 +86,21 @@ export default function BuscarImagen() {
           setPosiblesEnfermedades(prev => [...prev,index ]); 
         });
       }
+  if (cultivoId.toLowerCase() === "maiz") {
+    numeroCultivo = 0;
+  } else if (cultivoId.toLowerCase() === "citricos" || cultivoId.toLowerCase() === "limon") {
+    numeroCultivo = 1;
+    cultivoId = "limón";
+  } else if (cultivoId.toLowerCase() === "soja") {
+    numeroCultivo = 2;
+  } else if (cultivoId.toLowerCase() === "trigo") {
+    numeroCultivo = 3;
+  } else if (cultivoId.toLowerCase() === "uva") {
+    numeroCultivo = 4;
+  } else if (cultivoId.toLowerCase() === "cebada") {
+    numeroCultivo = 5;
+  }
+
    const removeAccents = (str: string): string => {
   const accents: { [key: string]: string } = {
       'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
@@ -74,13 +139,14 @@ export default function BuscarImagen() {
             setLabels(labelAnnotations.map((l: any) => l.description)); // es lo que genera Google Vision
 labelAnnotations.map((l: any) => {
               // Buscar en el diccionario si la etiqueta coincide con alguna enfermedad conocida
-             for (let i = 0; i < diccionarioLimon.length; i++) {
-            diccionarioLimon[i].forEach((enfermedad) => {
+             for (let i = 0; i < listaDiccionarios[numeroCultivo].length; i++) {
+            listaDiccionarios[numeroCultivo][i].forEach((enfermedad) => {
               if (removeAccents(l.description.toLowerCase()).includes(removeAccents(enfermedad.toLowerCase()))) {
-               setTextoPosiblesEnfermedades(prev => [...prev, "/listadoEnfermedades?cultivoId=maiz&enfermedadId=" + i.toString()]);  
-              }
+               setTextoPosiblesEnfermedades( [ "/listadoEnfermedades?cultivoId="+cultivoId+"&enfermedadId=" + i.toString()]);  
+              return; // Salir del bucle una vez que se encuentra una coincidencia}
               
-            });
+              }
+            }); 
           }
           
          });

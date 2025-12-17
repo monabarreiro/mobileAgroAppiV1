@@ -138,7 +138,7 @@ const pushHistorialArray = async (url: string) => {
 
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(226, 172, 33, 1)",
+          backgroundColor:  "rgba(139, 237, 19, 1)",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
@@ -158,7 +158,7 @@ const pushHistorialArray = async (url: string) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(211, 244, 170, 1)",
+          backgroundColor: "rgba(10, 123, 90, 1)",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
@@ -227,7 +227,7 @@ const pushHistorialArray = async (url: string) => {
 
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(102, 28, 231, 1)",
+          backgroundColor: "rgba(10, 123, 90, 1)",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
@@ -237,7 +237,7 @@ const pushHistorialArray = async (url: string) => {
         }}
         onPress={() => router.push(`/buscarImagen?cultivoId=uva`)}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "white", textAlign: "center" }}>
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
         UVA
         </Text>
       </TouchableOpacity>
@@ -280,7 +280,7 @@ const pushHistorialArray = async (url: string) => {
 
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(236, 239, 12, 1)",
+          backgroundColor: "rgba(139, 237, 19, 1)",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
@@ -312,8 +312,8 @@ const pushHistorialArray = async (url: string) => {
         </Text>
       </TouchableOpacity>
  */}
-
-      <TouchableOpacity
+{/*
+      <TouchableOpacity   
         style={{
           backgroundColor: "rgba(228, 239, 216, 1)",
           paddingVertical: 10,
@@ -330,9 +330,10 @@ const pushHistorialArray = async (url: string) => {
    BUSCAR ENFERMEDADES CON LENS 
         </Text>
       </TouchableOpacity>
+       */}
        <TouchableOpacity
         style={{
-          backgroundColor: "rgba(228, 239, 216, 1)",
+          backgroundColor:  "rgb(143,157,126)",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 6,
@@ -361,7 +362,7 @@ const pushHistorialArray = async (url: string) => {
         onPress={() => handleLinking("https://www.google.com/maps/search/agronomia/")}  //PONER LINK A LENS AI AQUÍ
       >
         <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-     Busquedas de Agronomias cercanas a tu campo
+     Búsquedas de Agronomías cercanas a tu campo
         </Text>
       </TouchableOpacity>
 

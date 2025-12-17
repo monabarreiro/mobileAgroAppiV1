@@ -30,7 +30,7 @@ export default function ListadoCultivos() {
 
     const refreshCultivos = (cultivo:string) => {
     
-        router.push(`/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivo)}&enfermedadId=1`);
+        router.push(`/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivo)}`);
     };
   return(
     <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
