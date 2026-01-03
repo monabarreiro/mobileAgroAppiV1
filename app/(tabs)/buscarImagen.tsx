@@ -1,11 +1,10 @@
 import { useRoute } from "@react-navigation/native";
-import { ImageBackground } from "expo-image";
+import { Image, ImageBackground } from 'expo-image';
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as imagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Linking, Text, TouchableOpacity, View } from 'react-native'; // Modulos necesarios
-
 
 
 
@@ -17,13 +16,16 @@ export default function BuscarImagen() {
       const [labels, setLabels] = React.useState<string[]>([]);
       const [posiblesEnfermedades, setPosiblesEnfermedades] = React.useState<number[]>([]);
       const [textoPosiblesEnfermedades, setTextoPosiblesEnfermedades] = React.useState<string[]>([]);
+      const [enfermedadDetectada, setEnfermedadDetectada] = React.useState<boolean>(false);
+      const [loading, setLoading] = React.useState<boolean>(false);
       const [diccionarioMaiz, setdiccionarioMaiz] = React.useState<string[][]>([
     ["White patches", "Pantoea ananatis"], // Ejemplo de enfermedad  Maiz 0
-    ["Pathology", "Plant pathology"],
-    ["Estrès hídric"],
-    ["Plant diseases", "Blight"],
-    ["Corn smut", "Smut"],
-    ["Río Cuarto"]
+    ["Pathology", "Plant pathology"], // Ejemplo de enfermedad  Maiz 1
+    ["Estrès hídric"], // estres hídrico
+    ["Plant diseases", "Blight"],//
+    ["Corn smut", "Smut"], //
+    ["Río Cuarto"] // Mal de Rio Cuarto
+
      
   ]); //
 const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
@@ -36,21 +38,26 @@ const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
      
   ]); // 
   const [diccionarioSoja, setdiccionarioSoja] = React.useState<string[][]>([
-    ["Septoria glycines", "Septoria"], // Mancha marron en sojaa Ejemplo de enfermedad 2.    Soja 2
-    ["Cercospora kikuchii", "Cercospora"],
-    ["Cercospora sojina", "Frogeye leaf spot"],// Mancha ojo de rana
-    ["", ""],
-    ["", ""],
-    [""]
+
+    ["Sclerotinia sclerotiorum", "Sclerotinia","Sclerotium"],//Esclerotinia.
+    ["Cercospora kikuchii", "Cercospora"], //Tizon purpura o Morado de la hoja
+    ["Diaporthe faseolorum var. sojae", "Diaporthe phaseolorum"],// tizon del tallo y vaina
+    ["Colletotrichum gloeosporioides", "Colletotrichum truncatum"],// Antracnosis 
+    ["Cercospora sojina", "Frogeye leaf spot"],// Mancha ojo de rana // 
+    ["Septoria glycines", "Septoria"], // Mancha marron en soja Ejemplo de enfermedad 2.    Soja 2
+
+ 
+  
+   
      
   ]); // 
     const [diccionarioTrigo, setdiccionarioTrigo] = React.useState<string[][]>([
-    ["", ""], // Ejemplo de enfermedad 2 Trigo 3 
-    ["", ""],
-    [""],
-    ["", ""],
-    ["", ""],
-    [""]
+    ["Loose smut of barley", ""], // Ejemplo de enfermedad 2 Trigo 3 
+    ["Pyrenophora tritici-repentis", ""],
+    ["Fusarium wilt ", "Fusarium oxysporum", "Fusarium"],
+    ["Stem rust", ""],
+    ["Mosaic virus ", "Soil-borne wheat mosaic virus" ],
+    ["", ""]// Agregar más enfermedades según sea necesario porque esta no funciona ///
      
   ]); // 
      const [diccionarioUva, setdiccionarioUva] = React.useState<string[][]>([
@@ -111,6 +118,7 @@ const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
   return str.split('').map((char: string) => accents[char] || char).join('');
 }
        async function cloudVisionFetch(imageUri: string) {
+          setLoading(true);
           const base64 = await ImageManipulator.manipulateAsync(
             imageUri,
             [{ resize: { width: 800 } }], // Redimensionar la imagen para reducir el tamaño
@@ -139,20 +147,32 @@ const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
             setLabels(labelAnnotations.map((l: any) => l.description)); // es lo que genera Google Vision
 labelAnnotations.map((l: any) => {
               // Buscar en el diccionario si la etiqueta coincide con alguna enfermedad conocida
+                 setEnfermedadDetectada(true); 
              for (let i = 0; i < listaDiccionarios[numeroCultivo].length; i++) {
             listaDiccionarios[numeroCultivo][i].forEach((enfermedad) => {
               if (removeAccents(l.description.toLowerCase()).includes(removeAccents(enfermedad.toLowerCase()))) {
-               setTextoPosiblesEnfermedades( [ "/listadoEnfermedades?cultivoId="+cultivoId+"&enfermedadId=" + i.toString()]);  
+               setTextoPosiblesEnfermedades( [ "/listadoEnfermedades?cultivoId="+cultivoId+"&enfermedadId=" + i.toString()]); 
+
               return; // Salir del bucle una vez que se encuentra una coincidencia}
               
               }
             }); 
           }
+            }
           
-         });
+          );
+       
+         // if (textoPosiblesEnfermedades.length === 0) {
+         // alert("No pudimos encontrar enfermedades con esa imagen. \nPor favor, inténtalo de nuevo con otra imagen o dirígete al listado de enfermedades.");
+         // }
+    setLoading(false);
+       
+
         } catch (e) {
           console.error(e);
-          alert("Error analyzing image");
+          alert("Error al analizar la imagen. Por favor, inténtalo de nuevo.");
+          setEnfermedadDetectada(true);
+           setLoading(false);
         }  }
 
           function textoAGoogle(texto: string) {  
@@ -198,7 +218,17 @@ labelAnnotations.map((l: any) => {
               </Text>
       
          </TouchableOpacity>
+         
+            {loading && ( 
+              <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 20 }}>
+             < Image
+              source={require('./img/logo_agroAppi.png')}
             
+              style={{ width: 100, height: 100, alignSelf: 'center' }}
+          />
+          
+          <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}> Analizando imagen, por favor espera...</Text>
+           </View> )}
             {labels.map((label, index) => (
               <TouchableOpacity key={index}  onPress={() => textoAGoogle(label + " " + cultivoId)}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>{label}</Text>
@@ -212,12 +242,19 @@ labelAnnotations.map((l: any) => {
 
         <Text style={{ fontSize: 20, color: 'blue', textDecorationLine: 'underline', textAlign: 'center', marginTop: 10 }}>
         Solución posible (Presiona aquí) 
+
         </Text>
       </TouchableOpacity>
     ))}
       <TouchableOpacity onPress={() => router.push(`/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivoId)}`)}>
         <Text style={{ fontSize: 24, color: "green", fontWeight: 'bold', textAlign: 'center' ,  marginTop: 20 }}>Ir al listado de enfermedades</Text>
       </TouchableOpacity>
+
+      {enfermedadDetectada === true && textoPosiblesEnfermedades.length === 0 && (
+        <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginTop: 20, color: 'red' }}>
+          No se detectaron enfermedades conocidas para {cultivoId}. Intente con otra imagen o vaya al listado de enfermedades.
+        </Text>
+      )}
       </div>
     </View>
     </ImageBackground>

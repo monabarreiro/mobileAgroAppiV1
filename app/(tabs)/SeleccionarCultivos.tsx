@@ -172,6 +172,7 @@ const pushHistorialArray = async (url: string) => {
          TRIGO
         </Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={{
           backgroundColor: "rgba(139, 237, 19, 1)",
@@ -189,7 +190,22 @@ const pushHistorialArray = async (url: string) => {
         </Text>
       </TouchableOpacity>
 
-      
+      <TouchableOpacity
+        style={{
+          backgroundColor: "rgba(139, 237, 19, 1)",
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 6,
+           marginLeft: 20,
+          marginRight: 20,
+        marginBottom: 10,
+        }}
+        onPress={() => router.push(`/buscarImagen?cultivoId=cebada`)}
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
+        CEBADA
+        </Text>
+      </TouchableOpacity> 
      {/*  <TouchableOpacity
         style={{
           backgroundColor: "rgba(232, 227, 81, 1)",

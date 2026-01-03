@@ -103,6 +103,7 @@ export default function ListadoEnfermedades() {
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
       <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Listado de Enfermedades</Text>
+        <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{cultivoId}</Text>
       {enfermedades.map((enfermedad,index) => (
         
         <TouchableOpacity

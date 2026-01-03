@@ -40,7 +40,9 @@ export default function Login() {
       else setError(String(error));
     }
   };
-
+ const recuperarContrasena = () => {
+    router.push("/recuperarContraseña");
+  };
   useEffect(() => {
     
     if (response?.type === "success") {
@@ -91,6 +93,7 @@ export default function Login() {
 
         <button type="submit">Login</button>
       </form>
+      
 
       <TouchableOpacity
         style={{
@@ -105,6 +108,18 @@ export default function Login() {
         <Text style={{ color: "white", fontSize: 16 }}>Login with Google</Text>
       </TouchableOpacity>
 
+ <TouchableOpacity
+        style={{
+          marginTop: 20,
+          padding: 10,
+          backgroundColor: "#3c3d3fff",
+          borderRadius: 5,
+        }}
+        onPress={() => recuperarContrasena()}
+        disabled={!request}
+      >
+        <Text style={{ color: "white", fontSize: 16 }}>Recuperar Contraseña</Text>
+      </TouchableOpacity>
       {error && <p>{error}</p>}
     </View>
   );

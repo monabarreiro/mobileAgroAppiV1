@@ -357,7 +357,7 @@ export default function Admin() {
       <th scope="col">Nombre de la enfermedad</th>
       <th scope="col">Descripción de enfermedad</th>
       <th scope="col">URL de Img de Enfermedades</th>
-      <th scope="col">Botones</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -402,7 +402,6 @@ export default function Admin() {
     <th scope="col">Soluciones Biológicas</th>
     <th scope="col">Imágenes Soluciones Químicas</th>
     <th scope="col">Imágenes Soluciones Biológicas</th>
-    <th scope="col">URL de Imágenes de la enfermedad</th>
     <th scope="col">Botones</th>
     
     <tbody>
@@ -472,12 +471,7 @@ Crear enfermedad
 
 </table>
 
-<div className="bg-dark">
-  <input type="text" value={urlgit} onChange={(e) => setUrlgit(e.target.value)} />
-  <button onClick={urlPermalinkaUrl}>
-   Convertir permalink a URL de imagen
-  </button>
-</div>
+
 
 <div className="bg-dark">
 
