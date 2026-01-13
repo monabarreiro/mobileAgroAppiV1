@@ -6,7 +6,8 @@ import * as WebBrowser from "expo-web-browser";
 import { useRouter } from "expo-router";
 import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -61,9 +62,17 @@ export default function Login() {
   }, [response]);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <h1 style={{ fontSize: 24, fontWeight: "bold", marginBottom: 30 }}>Login</h1>
-
+    <ImageBackground
+      source={require('./img/fondo_trigo.png')}
+      style={{ flex: 1,
+     alignItems: 'center',
+     justifyContent: 'center',
+     width: '100%',
+     height: '100%', }}
+    >
+      <View style={{  width: '50%' }}>
+         <div style={{ flex: 1, backgroundColor: '#A4C3B2', padding: 10,textAlign: 'center', borderRadius: 10, width:"100%" }}>
+        <h1 style={{ fontSize: 24, fontWeight: "bold", marginBottom: 30 }}>Iniciar Sesión</h1>
       <form
         onSubmit={handleLogin}
         style={{
@@ -80,7 +89,7 @@ export default function Login() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{ marginBottom: 10, width: 300, height: 30, borderRadius: 5 }}
+          style={{ marginBottom: 10, width: 300, height: 30, borderRadius: 25, }}
         />
 
         <input
@@ -88,10 +97,10 @@ export default function Login() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ marginBottom: 10, width: 300, height: 30, borderRadius: 5 }}
+          style={{ marginBottom: 10, width: 300, height: 30, borderRadius: 25 }}
         />
 
-        <button type="submit">Login</button>
+        <button style={{ backgroundColor:  "#27352F", color: "white", padding: 10, borderRadius: 10 ,width:"55%"}} type="submit">Iniciar Sesión</button>
       </form>
       
 
@@ -99,7 +108,7 @@ export default function Login() {
         style={{
           marginTop: 20,
           padding: 10,
-          backgroundColor: "#4285F4",
+          backgroundColor:  "#27352F",
           borderRadius: 5,
         }}
         onPress={() => promptAsync()}
@@ -112,7 +121,7 @@ export default function Login() {
         style={{
           marginTop: 20,
           padding: 10,
-          backgroundColor: "#3c3d3fff",
+          backgroundColor:  "#27352F",
           borderRadius: 5,
         }}
         onPress={() => recuperarContrasena()}
@@ -121,6 +130,9 @@ export default function Login() {
         <Text style={{ color: "white", fontSize: 16 }}>Recuperar Contraseña</Text>
       </TouchableOpacity>
       {error && <p>{error}</p>}
+      </div>
     </View>
+  </ImageBackground>
+  
   );
 }  

@@ -8,12 +8,10 @@
     "scheme": "mobileagroappi",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mobileagroappi.app",
       "googleServicesFile": "./GoogleService-Info.plist"
-
     },
     "android": {
       "adaptiveIcon": {
@@ -43,8 +41,8 @@
         {
           "iosGoogleServicesFile": "./GoogleService-Info.plist"
         }
-      ]
- 
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

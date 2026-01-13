@@ -1,14 +1,21 @@
+import { Roboto_400Regular, Roboto_700Bold, useFonts } from '@expo-google-fonts/roboto';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Image } from 'expo-image';
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as imagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Linking, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+
 
 
 
 export default function SeleccionarCultivos() {
   const router = useRouter();
+   let [fontsLoaded] = useFonts({
+      Roboto_400Regular,
+      Roboto_700Bold
+    });
   const [searchTerm, setSearchTerm] = React.useState('');
   let historialArray1: { url: string; fecha: string }[] = [{ url: "Historial Vacío", fecha: " " }] ;
   const [historialArray, setHistorialArray] = React.useState(historialArray1); // Estado para forzar la re-renderización
@@ -118,14 +125,14 @@ const pushHistorialArray = async (url: string) => {
   };
 
   return (
-    <ScrollView>
-      <Text style={{ color: 'green', fontSize: 24, fontWeight: "bold", textAlign: "center", marginTop: 20, marginBottom: 20 }}>
+    <ScrollView style={{ backgroundColor: "#27352F" }}>
+      <Text style={{ color: 'white', fontSize: 24, fontWeight: "bold", textAlign: "center", marginTop: 20, marginBottom: 20, fontFamily: 'Roboto_700Bold' }}>
         
         SELECCIONAR CULTIVO
   
       </Text>
 
-      <Text style={{ color: 'black', fontSize: 18, textAlign: "center", marginTop: 10, marginBottom: 10 }}>
+      <Text style={{ color: 'white', fontSize: 18, textAlign: "center", marginTop: 10, marginBottom: 10, fontFamily: 'Roboto_400Regular' }}>
         En esta página podrás seleccionar el cultivo que deseas analizar.{'\n'}
          Presiona el botón del cultivo elegido y en el siguiente paso, {'\n'}
          te pedirá que subas una foto del cultivo afectado. {'\n'}
@@ -135,226 +142,99 @@ const pushHistorialArray = async (url: string) => {
 
       </Text>
 
-
+<View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 20, marginBottom: 20 }}>
       <TouchableOpacity
         style={{
-          backgroundColor:  "rgba(139, 237, 19, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-          marginLeft: 20,
-          marginRight: 20,
-          marginTop: 20,
-          marginBottom: 10,
-        
-         
+         width: '48%', borderRadius: 15
         }}
         onPress={() => router.push(`/buscarImagen?cultivoId=maiz`)}
 
       >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-         MAIZ
-        </Text>
+        <Image
+          source={require('./img/maiz.png')}
+          style={{ width: 100, height:100, alignSelf: 'center', marginBottom: 10 }}
+        />
+       
       </TouchableOpacity>
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(10, 123, 90, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 10,
+             width: '48%', borderRadius: 15
         }}
          onPress={() => router.push(`/buscarImagen?cultivoId=trigo`)}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-         TRIGO
-        </Text>
+        <Image
+          source={require('./img/trigo.png')}
+          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+        /> 
       </TouchableOpacity>
 
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(139, 237, 19, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-        marginBottom: 10,
+         width: '48%', borderRadius: 15
+          
         }}
         onPress={() => router.push(`/buscarImagen?cultivoId=soja`)}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-         SOJA
-        </Text>
+       <Image
+          source={require('./img/soja.png')}
+          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+        />
       </TouchableOpacity>
 
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(139, 237, 19, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-        marginBottom: 10,
+         
+           width: '48%', borderRadius: 15 
         }}
         onPress={() => router.push(`/buscarImagen?cultivoId=cebada`)}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-        CEBADA
-        </Text>
+         <Image
+          source={require('./img/cebada.png')}
+          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+        />
       </TouchableOpacity> 
-     {/*  <TouchableOpacity
-        style={{
-          backgroundColor: "rgba(232, 227, 81, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-          marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 10,
-        }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=tomate`)}
-      >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-       TOMATE
-        </Text>
-      </TouchableOpacity> */}
+     
 
-      {/* <TouchableOpacity
-        style={{
-          backgroundColor: "rgba(50, 87, 5, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 10,
-        }}
-
-         onPress={() => router.push(`/buscarImagen?cultivoId=papa`)}
-      >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "white", textAlign: "center" }}>
-      PAPA
-        </Text>
-      </TouchableOpacity> */}
 
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(10, 123, 90, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 10,
+         width: '48%', borderRadius: 15
+      
         }}
         onPress={() => router.push(`/buscarImagen?cultivoId=uva`)}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-        UVA
-        </Text>
+         <Image
+          source={require('./img/uva.png')}
+          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+        />
       </TouchableOpacity>
 
-      {/* <TouchableOpacity
-        style={{
-          backgroundColor: "rgba(234, 223, 16, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 10,
-        }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=cereza`)}
-      >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-        CEREZA
-        </Text>
-      </TouchableOpacity> */}
+     
 
 
-      {/*  <TouchableOpacity
-        style={{
-          backgroundColor: "rgba(198, 106, 19, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 10,
-        }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=manzana`)}
-      >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-        MANZANA
-        </Text>
-      </TouchableOpacity> */}
+    
 
 
       <TouchableOpacity
         style={{
-          backgroundColor: "rgba(139, 237, 19, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 10,
+    
+            width: '48%', borderRadius: 15
         }}
         onPress={() => router.push(`/buscarImagen?cultivoId=citricos`)}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-         CITRICOS
-        </Text>
+       <Image
+          source={require('./img/limon.png')}
+          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+        />
       </TouchableOpacity>
+      </View>
      
-     {/*  <TouchableOpacity
-        style={{
-          backgroundColor: "rgba(228, 239, 216, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          
-        }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=frutilla`)}
-      >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-      FRUTILLA
-        </Text>
-      </TouchableOpacity>
- */}
-{/*
-      <TouchableOpacity   
-        style={{
-          backgroundColor: "rgba(228, 239, 216, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
-          
-        }}
-        onPress={() => handleLinking("https://www.google.com/?olud=1")}  //PONER LINK A LENS AI AQUÍ
-      >
-        <Text style={{ fontWeight: "bold", fontSize: 24, color: "black", textAlign: "center" }}>
-     
-   BUSCAR ENFERMEDADES CON LENS 
-        </Text>
-      </TouchableOpacity>
-       */}
+    
+
        <TouchableOpacity
         style={{
-          backgroundColor:  "rgb(143,157,126)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
+   
+ 
           
         }}
         onPress={() => router.push("/listadoCultivos")}  //PONER LINK A LENS AI AQUÍ
@@ -368,11 +248,6 @@ const pushHistorialArray = async (url: string) => {
       <TouchableOpacity
         style={{
           backgroundColor: "rgba(228, 239, 216, 1)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-           marginLeft: 20,
-          marginRight: 20,
           
         }}
         onPress={() => handleLinking("https://www.google.com/maps/search/agronomia/")}  //PONER LINK A LENS AI AQUÍ
@@ -384,14 +259,7 @@ const pushHistorialArray = async (url: string) => {
 
        <TouchableOpacity
         style={{
-          backgroundColor: "rgb(143,157,126)",
-          paddingVertical: 10,
-          paddingHorizontal: 20,
-          borderRadius: 6,
-          marginLeft: "25%",
-          marginRight: "25%",
-          marginTop: 20,
-          marginBottom: 20,
+          
         }}
         onPress={() => router.push("/")}
       >
