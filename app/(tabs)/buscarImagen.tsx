@@ -1,3 +1,4 @@
+import { Roboto_400Regular, Roboto_700Bold, useFonts } from '@expo-google-fonts/roboto';
 import { useRoute } from "@react-navigation/native";
 import { Image, ImageBackground } from 'expo-image';
 import * as ImageManipulator from 'expo-image-manipulator';
@@ -5,6 +6,8 @@ import * as imagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Linking, Text, TouchableOpacity, View } from 'react-native'; // Modulos necesarios
+
+
 
 
 
@@ -81,7 +84,11 @@ const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
   let listaDiccionarios: string[][][] = [diccionarioMaiz, diccionarioLimon, diccionarioSoja, diccionarioTrigo, diccionarioUva, diccionarioCebada];
   let numeroCultivo: number = 0; // Maiz por defecto
   
-  
+   let [fontsLoaded] = useFonts({  
+      Roboto_400Regular,
+      Roboto_700Bold
+    });
+    
   
   const route = useRoute();
       let {cultivoId} = route.params  as {cultivoId: any | ""};
@@ -201,24 +208,42 @@ labelAnnotations.map((l: any) => {
         };
       
   return (
-    <ImageBackground source={require("./img/campo4.jpg")} style={{ flex: 1, padding: 10 }} resizeMode="cover"> 
+    <ImageBackground source={require("./img/sojaregada.jpg")} style={{ flex: 1, padding: 10 }} resizeMode="cover"> 
+    
     <View>
       <div style={{ flex: 1, backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: 10,textAlign: 'center', borderRadius: 10 }}>
+
+  
   <TouchableOpacity onPress={() => router.push("/SeleccionarCultivos")}>
 
-      <Text style={{ fontSize: 24,color: "green", fontWeight: 'bold', textAlign: 'center', marginTop: 20, marginBottom: 20 }}>Volver a Selección de Cultivos</Text>
+
+      <Image style={{ width:50, height:50, marginBottom: 10 }}
+       source={require('./img/volver.png')}/>  
+
     </TouchableOpacity>
-      <Text style={{ color: 'black', fontSize: 24, fontWeight: "bold", textAlign: "center", marginTop: 20, marginBottom: 20 }}> 
-        SUBIR IMAGEN DEL CULTIVO: {cultivoId.toUpperCase()}
+   
+   <View >
+    <Text style={{ fontFamily: 'Roboto_700Bold', color: 'black', fontSize: 24, fontWeight: "bold", textAlign: "center", marginTop: 20, marginBottom: 20 }}> 
+        Subir imagen del Cultivo:  {cultivoId.toUpperCase()}
         </Text>
-        
-       <TouchableOpacity onPress={pickImage}>
-              <Text style={{ color: '#3c0ef6ff', fontSize: 20, fontWeight: "bold", textAlign: "center", marginTop: 10, marginBottom: 10 }}>
-              Subi tu imagen aquí  (Presiona para abrir)
+    <Image  source={require('./img/sacarFoto.png')}
+
+      style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10, justifyContent: 'center' }}
+    />  
+
+   </View>
+      <View style={{ alignItems: 'center', justifyContent: 'center' , marginBottom: 20}}>
+       <TouchableOpacity style={{ backgroundColor: "#27352F", padding: 10, borderRadius: 20,width: "80%", justifyContent: "center",shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4, }} onPress={pickImage}>
+              <Text style={{ color: '#F6FFF8', fontFamily: 'Roboto_700Bold', fontSize: 20, fontWeight: "bold", textAlign: "center", marginTop: 10, marginBottom: 10 }}>
+              Subí tu imagen desde galería 
               </Text>
       
          </TouchableOpacity>
-         
+</View>
+        
             {loading && ( 
               <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 20 }}>
              < Image
@@ -246,12 +271,18 @@ labelAnnotations.map((l: any) => {
         </Text>
       </TouchableOpacity>
     ))}
-      <TouchableOpacity onPress={() => router.push(`/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivoId)}`)}>
-        <Text style={{ fontSize: 24, color: "green", fontWeight: 'bold', textAlign: 'center' ,  marginTop: 20 }}>Ir al listado de enfermedades</Text>
+    <View style={{ alignItems: 'center', justifyContent: 'center' , marginTop: 20, marginBottom: 20}}>
+
+      <TouchableOpacity style={{ backgroundColor:"#F6FFF8" , padding: 10, borderRadius: 20,width: "80%", justifyContent: "center",shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4, }} onPress={() => router.push(`/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivoId)}`)}>
+        <Text style={{ fontFamily: 'Roboto_700Bold', fontSize: 20, color: "#27352F", fontWeight: 'bold', textAlign: 'center' ,  marginTop: 20 }}>Ir al listado de enfermedades</Text>
       </TouchableOpacity>
+      </View>
 
       {enfermedadDetectada === true && textoPosiblesEnfermedades.length === 0 && (
-        <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginTop: 20, color: 'red' }}>
+        <Text style={{ fontFamily: 'Roboto_700Bold', fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginTop: 20, color: 'red' }}>
           No se detectaron enfermedades conocidas para {cultivoId}. Intente con otra imagen o vaya al listado de enfermedades.
         </Text>
       )}

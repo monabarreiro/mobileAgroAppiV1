@@ -15,6 +15,7 @@ export default function ListadoEnfermedades() {
   const [descripcionEnf,setDescripcionEnf] = useState<{ id: string; [key: string]: any }[]>([]);
   const [mostrarEnf, setMostrarEnf] = useState <boolean[]>([]);
 
+
   const [mostrarQuimicas, setMostrarQuimicas] = useState <boolean[]>([]);
   const [mostrarBiologicas, setMostrarBiologicas] = useState <boolean[]>([]);
   
@@ -25,6 +26,17 @@ export default function ListadoEnfermedades() {
   const { enfermedadId } = route.params  as { enfermedadId: string | null };
   const { quimicaId } = route.params  as { quimicaId: string | null };
   const { biologicaId } = route.params  as { biologicaId: string | null };
+
+const imagen = {
+Trigo: require('./img/trigo_solo.png'),
+Maíz: require('./img/maiz_solo.png'),
+Soja: require('./img/soja_solo.png'),
+Cebada: require('./img/cebada_solo.png'),
+Uva: require('./img/uva_solo.png'),
+Limón: require('./img/limon_solo.png')
+};
+const textoImagen = cultivoId ? imagen[cultivoId as keyof typeof imagen] : null;
+
 
     const removeAccents = (str: string): string => {
   const accents: { [key: string]: string } = {
@@ -103,6 +115,8 @@ export default function ListadoEnfermedades() {
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
       <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Listado de Enfermedades</Text>
+     
+      <Image  source={textoImagen} style={{ width: 200, height: 200, borderRadius: 20 }} />
         <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{cultivoId}</Text>
       {enfermedades.map((enfermedad,index) => (
         

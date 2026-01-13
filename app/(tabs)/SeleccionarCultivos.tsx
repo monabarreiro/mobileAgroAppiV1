@@ -5,12 +5,16 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import * as imagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+  
+
 
 
 
 
 export default function SeleccionarCultivos() {
+  let screenwidth = Dimensions.get('window').width;
+
   const router = useRouter();
    let [fontsLoaded] = useFonts({
       Roboto_400Regular,
@@ -128,11 +132,11 @@ const pushHistorialArray = async (url: string) => {
     <ScrollView style={{ backgroundColor: "#27352F" }}>
       <Text style={{ color: 'white', fontSize: 24, fontWeight: "bold", textAlign: "center", marginTop: 20, marginBottom: 20, fontFamily: 'Roboto_700Bold' }}>
         
-        SELECCIONAR CULTIVO
+        Seleccionar Cultivo
   
       </Text>
 
-      <Text style={{ color: 'white', fontSize: 18, textAlign: "center", marginTop: 10, marginBottom: 10, fontFamily: 'Roboto_400Regular' }}>
+      <Text style={{ color: 'white', fontSize: 14, textAlign: "center", marginTop: 10, marginBottom: 10, fontFamily: 'Roboto_400Regular' }}>
         En esta página podrás seleccionar el cultivo que deseas analizar.{'\n'}
          Presiona el botón del cultivo elegido y en el siguiente paso, {'\n'}
          te pedirá que subas una foto del cultivo afectado. {'\n'}
@@ -141,30 +145,31 @@ const pushHistorialArray = async (url: string) => {
         recomendaciones para tratar la enfermedad detectada.{'\n'}
 
       </Text>
-
-<View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 20, marginBottom: 20 }}>
+ <div style={{ flex: 2, backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: 10, borderRadius: 10 }}>
+<View style={{ marginTop: 20, marginBottom: 20 , flexDirection: 'row', flexWrap: 'wrap',}}>
+   
       <TouchableOpacity
-        style={{
-         width: '48%', borderRadius: 15
+        style={{  width: '48%', borderRadius: 15
+     
         }}
         onPress={() => router.push(`/buscarImagen?cultivoId=maiz`)}
 
       >
         <Image
           source={require('./img/maiz.png')}
-          style={{ width: 100, height:100, alignSelf: 'center', marginBottom: 10 }}
+          style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 10 }}
         />
        
       </TouchableOpacity>
       <TouchableOpacity
-        style={{
-             width: '48%', borderRadius: 15
+        style={{ width: '48%',
+        borderRadius: 15
         }}
          onPress={() => router.push(`/buscarImagen?cultivoId=trigo`)}
       >
         <Image
           source={require('./img/trigo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+          style={{  width: 150, height: 150,  alignSelf: 'center', marginBottom: 10 }}
         /> 
       </TouchableOpacity>
 
@@ -177,7 +182,7 @@ const pushHistorialArray = async (url: string) => {
       >
        <Image
           source={require('./img/soja.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+          style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 10 }}
         />
       </TouchableOpacity>
 
@@ -190,7 +195,7 @@ const pushHistorialArray = async (url: string) => {
       >
          <Image
           source={require('./img/cebada.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+          style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 10 }}
         />
       </TouchableOpacity> 
      
@@ -205,14 +210,9 @@ const pushHistorialArray = async (url: string) => {
       >
          <Image
           source={require('./img/uva.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+          style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 10 }}
         />
       </TouchableOpacity>
-
-     
-
-
-    
 
 
       <TouchableOpacity
@@ -224,11 +224,12 @@ const pushHistorialArray = async (url: string) => {
       >
        <Image
           source={require('./img/limon.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center', marginBottom: 10 }}
+          style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 10 }}
         />
       </TouchableOpacity>
+      
       </View>
-     
+     </div>
     
 
        <TouchableOpacity
