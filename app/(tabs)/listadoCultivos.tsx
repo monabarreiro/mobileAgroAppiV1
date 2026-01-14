@@ -4,6 +4,8 @@ import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity } from "react-native";
+import Footer from "./footer";
+
 
 
 
@@ -33,7 +35,7 @@ export default function ListadoCultivos() {
         router.push(`/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivo)}`);
     };
   return(
-    <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 }}>
+    <ScrollView contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 50 , height: '100%'}}>
       <Text style={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Listado de Cultivos</Text>
       {cultivos.map((cultivo) => (
         <TouchableOpacity
@@ -47,6 +49,9 @@ export default function ListadoCultivos() {
       <TouchableOpacity onPress={() => router.push(`/SeleccionarCultivos`)}>
         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Volver a la lista de cultivos</Text>
       </TouchableOpacity>
+
+      <Footer /> 
     </ScrollView>
   );
+
 }

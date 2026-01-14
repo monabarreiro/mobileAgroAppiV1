@@ -28,17 +28,17 @@ export default function ListadoEnfermedades() {
   const { biologicaId } = route.params  as { biologicaId: string | null };
 
 const imagen = {
-Trigo: require('./img/trigo_solo.png'),
-Maíz: require('./img/maiz_solo.png'),
-Soja: require('./img/soja_solo.png'),
-Cebada: require('./img/cebada_solo.png'),
-Uva: require('./img/uva_solo.png'),
-Limón: require('./img/limon_solo.png')
+trigo: require('./img/trigo_solo.png'),
+maiz: require('./img/maiz_solo.png'),
+soja: require('./img/soja_solo.png'),
+cebada: require('./img/cebada_solo.png'),
+uva: require('./img/uva_solo.png'),
+limon: require('./img/limon_solo.png')
 };
-const textoImagen = cultivoId ? imagen[cultivoId as keyof typeof imagen] : null;
 
 
-    const removeAccents = (str: string): string => {
+
+  const removeAccents = (str: string): string => {
   const accents: { [key: string]: string } = {
       'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
       'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
@@ -47,6 +47,7 @@ const textoImagen = cultivoId ? imagen[cultivoId as keyof typeof imagen] : null;
   
   return str.split('').map((char: string) => accents[char] || char).join('');
 }
+ const textoImagen = cultivoId ? imagen[removeAccents(cultivoId).toLowerCase() as keyof typeof imagen] : null;
     const mostrarUno = (index: number) => {
       setMostrarEnf((prevState) => {
         const newState = [...prevState];

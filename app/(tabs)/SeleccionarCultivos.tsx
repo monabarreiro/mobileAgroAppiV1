@@ -152,7 +152,7 @@ const pushHistorialArray = async (url: string) => {
         style={{  width: '48%', borderRadius: 15
      
         }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=maiz`)}
+        onPress={() => router.push(`/buscarImagen?cultivoId=Maíz`)}
 
       >
         <Image
@@ -165,7 +165,7 @@ const pushHistorialArray = async (url: string) => {
         style={{ width: '48%',
         borderRadius: 15
         }}
-         onPress={() => router.push(`/buscarImagen?cultivoId=trigo`)}
+         onPress={() => router.push(`/buscarImagen?cultivoId=Trigo`)}
       >
         <Image
           source={require('./img/trigo.png')}
@@ -178,7 +178,7 @@ const pushHistorialArray = async (url: string) => {
          width: '48%', borderRadius: 15
           
         }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=soja`)}
+        onPress={() => router.push(`/buscarImagen?cultivoId=Soja`)}
       >
        <Image
           source={require('./img/soja.png')}
@@ -191,7 +191,7 @@ const pushHistorialArray = async (url: string) => {
          
            width: '48%', borderRadius: 15 
         }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=cebada`)}
+        onPress={() => router.push(`/buscarImagen?cultivoId=Cebada`)}
       >
          <Image
           source={require('./img/cebada.png')}
@@ -206,7 +206,7 @@ const pushHistorialArray = async (url: string) => {
          width: '48%', borderRadius: 15
       
         }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=uva`)}
+        onPress={() => router.push(`/buscarImagen?cultivoId=Uva`)}
       >
          <Image
           source={require('./img/uva.png')}
@@ -220,7 +220,7 @@ const pushHistorialArray = async (url: string) => {
     
             width: '48%', borderRadius: 15
         }}
-        onPress={() => router.push(`/buscarImagen?cultivoId=citricos`)}
+        onPress={() => router.push(`/buscarImagen?cultivoId=Citricos`)}
       >
        <Image
           source={require('./img/limon.png')}

@@ -100,9 +100,9 @@ const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
           setPosiblesEnfermedades(prev => [...prev,index ]); 
         });
       }
-  if (cultivoId.toLowerCase() === "maiz") {
+  if (cultivoId.toLowerCase() === "maíz") {
     numeroCultivo = 0;
-  } else if (cultivoId.toLowerCase() === "citricos" || cultivoId.toLowerCase() === "limon") {
+  } else if (cultivoId.toLowerCase() === "citricos" || cultivoId.toLowerCase() === "limón") {
     numeroCultivo = 1;
     cultivoId = "limón";
   } else if (cultivoId.toLowerCase() === "soja") {
@@ -186,6 +186,25 @@ labelAnnotations.map((l: any) => {
             const url = `https://www.google.com/search?q=${encodeURIComponent(texto)}`;
             Linking.openURL(url);
           }
+         async function openCamara() {
+            let result = await imagePicker.requestCameraPermissionsAsync();
+      
+            if (result.granted) {
+              let cameraResult = await imagePicker.launchCameraAsync({
+                mediaTypes: imagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+              });
+        
+              if (!cameraResult.canceled) {
+                setImage(cameraResult.assets[0].uri);
+        
+               await cloudVisionFetch(cameraResult.assets[0].uri);
+        
+              }
+            }
+          }
       async function pickImage() {
           // No permissions request is necessary for launching the image library
           let result = await imagePicker.requestMediaLibraryPermissionsAsync();
@@ -233,6 +252,20 @@ labelAnnotations.map((l: any) => {
 
    </View>
       <View style={{ alignItems: 'center', justifyContent: 'center' , marginBottom: 20}}>
+ 
+ <TouchableOpacity style={{ backgroundColor: "#27352F", padding: 10, borderRadius: 20,width: "80%", justifyContent: "center",shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    margin: 15,
+    shadowRadius: 4, }} onPress={openCamara}>
+              <Text style={{ color: '#F6FFF8', fontFamily: 'Roboto_700Bold', fontSize: 20, fontWeight: "bold", textAlign: "center", marginTop: 10, marginBottom: 10 }}>
+              Tomá una foto con la cámara 
+              </Text>
+      
+         </TouchableOpacity>
+
+
+
        <TouchableOpacity style={{ backgroundColor: "#27352F", padding: 10, borderRadius: 20,width: "80%", justifyContent: "center",shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -252,20 +285,18 @@ labelAnnotations.map((l: any) => {
               style={{ width: 100, height: 100, alignSelf: 'center' }}
           />
           
-          <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}> Analizando imagen, por favor espera...</Text>
+          <Text style={{ fontFamily: "Roboto_400Regular",fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginTop: 10 }}> Analizando imagen, por favor espera...</Text>
            </View> )}
             {labels.map((label, index) => (
               <TouchableOpacity key={index}  onPress={() => textoAGoogle(label + " " + cultivoId)}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>{label}</Text>
+                <Text style={{ fontFamily: "Roboto_400Regular", fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>{label}</Text>
               </TouchableOpacity>
             ))}
-            {image && (
-              <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' , marginTop: 10, marginBottom: 10 }}> Imagen seleccionada: {image}</Text>
-            )}
+            
             {textoPosiblesEnfermedades.map((enlace, index) => (
       <TouchableOpacity key={index} onPress={() => router.push(textoPosiblesEnfermedades[index] as any)}>
 
-        <Text style={{ fontSize: 20, color: 'blue', textDecorationLine: 'underline', textAlign: 'center', marginTop: 10 }}>
+        <Text style={{ fontFamily: "Roboto_400Regular", fontSize: 20, color: 'blue', textDecorationLine: 'underline', textAlign: 'center', marginTop: 10 }}>
         Solución posible (Presiona aquí) 
 
         </Text>
