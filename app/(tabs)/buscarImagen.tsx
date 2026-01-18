@@ -56,30 +56,30 @@ const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
   ]); // 
     const [diccionarioTrigo, setdiccionarioTrigo] = React.useState<string[][]>([
     ["Loose smut of barley", ""], // Ejemplo de enfermedad 2 Trigo 3 
-    ["Pyrenophora tritici-repentis", ""],
-    ["Fusarium wilt ", "Fusarium oxysporum", "Fusarium"],
+    ["Pyrenophora tritici-repentis", ""], // Mancha amarilla
+    ["Fusarium wilt ", "Fusarium oxysporum", "Fusarium"], // fusariosis
     ["Stem rust", ""],
-    ["Mosaic virus ", "Soil-borne wheat mosaic virus" ],
-    ["", ""]// Agregar más enfermedades según sea necesario porque esta no funciona ///
-     
+    ["Mosaic virus ", "Soil-borne wheat mosaic virus" ], // Mosaico
+    //["Puccinia graminis", ""], // Roya del tallo
   ]); // 
      const [diccionarioUva, setdiccionarioUva] = React.useState<string[][]>([
-    ["", ""], // Ejemplo de enfermedad 2Uva 4 
-    ["", ""],
-    [""],
-    ["", ""],
-    ["", ""],
-    [""]
+    ["Oidium Uva", "powdery mildew Uva"], // Ejemplo de enfermedad 2Uva 4 Oidio de la vid 
+    ["Esca Uva", ""], //Yesca
+    ["Black rot Uva", ""], //Black rot
+    ["Filoxera Uva", ""],//Filoxera
+    ["Mildiu Uva", ""], //Mildiu
+    ["Botritis Uva", "Botrytis"] // Botritis // cambiar 
      
   ]); // 
       const [diccionarioCebada, setdiccionarioCebada] = React.useState<string[][]>([
-    ["", ""], // Ejemplo de enfermedad 2Cebada 5 
-    ["", ""],
-    [""],
-    ["", ""],
-    ["", ""],
-    [""]
-     
+  
+    ["Stem rust Cebada", "Puccinia hordei Cebada"], //1Roya amarilla o anaranjada
+    ["Blumeria graminis Cebada"], // 2oidio
+    ["Ramularia collo-cygni Cebada", "Plant pathology Cebada", "Ramularia Cebada"], // 3Ramularia
+    ["Helminthosporium Cebada", "Pyrenophora teres Cebada"], // 4 Helmintosporiosis
+    ["Septoria", "Zymoseptoria tritici"] // 5 Septoria
+    ["Rhynchosporium secalis Cebada", ""], // 6 Rincosporiosis
+
   ]); // 
   let listaDiccionarios: string[][][] = [diccionarioMaiz, diccionarioLimon, diccionarioSoja, diccionarioTrigo, diccionarioUva, diccionarioCebada];
   let numeroCultivo: number = 0; // Maiz por defecto

@@ -5,8 +5,8 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import * as imagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Dimensions, Linking, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-  
+import { Dimensions, Linking, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import Footer from './footer';
 
 
 
@@ -246,7 +246,7 @@ const pushHistorialArray = async (url: string) => {
       </TouchableOpacity>
 
 
-      <TouchableOpacity
+     {/* <TouchableOpacity
         style={{
           backgroundColor: "rgba(228, 239, 216, 1)",
           
@@ -257,6 +257,7 @@ const pushHistorialArray = async (url: string) => {
      Búsquedas de Agronomías cercanas a tu campo
         </Text>
       </TouchableOpacity>
+   
 
        <TouchableOpacity
         style={{
@@ -285,15 +286,16 @@ const pushHistorialArray = async (url: string) => {
           setSearchTerm("");
         }}
       />
-  
-      <ScrollView contentContainerStyle={{ margin: 20, maxHeight: 200, justifyContent: 'center', alignItems: 'center' }}>
+   */}
+     {/*   <ScrollView contentContainerStyle={{ margin: 20, maxHeight: 200, justifyContent: 'center', alignItems: 'center' }}>
         {historialArray.map((item, index) => (
           <TouchableOpacity key={index} onPress={() => Linking.openURL(item.url)}>
             <Text>{item.url} - {item.fecha}</Text>  
           </TouchableOpacity>
         ))}
       </ScrollView>
-      
+      //}  */}
+      <Footer />
     </ScrollView>
   );
 

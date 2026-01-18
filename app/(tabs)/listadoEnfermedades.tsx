@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import React, { useCallback, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import Footer from "./footer";
 
 
 
@@ -125,7 +126,7 @@ limon: require('./img/limon_solo.png')
           key={enfermedad.id}
 
           style={{backgroundColor: enfermedadId === String(index) ?  styleExtra.backgroundColor:'#b6eab8ff' , padding: 10, borderRadius: 5, width: '80%', alignItems: 'center' }}
-          onPress={() => mostrarUno(index)}
+          onPress={() => router.push(`/(tabs)/enfermedadDetectada?cultivoId=${encodeURIComponent(cultivoId || '')}&enfermedadId=${index}`)}
         >
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{enfermedad.Titulo}</Text>
           {mostrarEnf[index] && (
@@ -167,15 +168,21 @@ limon: require('./img/limon_solo.png')
                 ))}
               </View>
             )}  
-            </View>
-            
+            </View>  
 
           )}
         </TouchableOpacity>
       ))}
+      
        <TouchableOpacity onPress={() => refreshCultivos()}>
               <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Volver a la lista de cultivos</Text>
             </TouchableOpacity>
+            <br />
+            <br />
+            <br />
+            <br />
+      <Footer />
+    
     </ScrollView>
   );
 }
