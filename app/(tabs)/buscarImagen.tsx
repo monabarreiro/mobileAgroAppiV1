@@ -35,7 +35,7 @@ export default function BuscarImagen() {
     ["Plant diseases", "Blight"], //4.- Tizon del maiz
     ["Corn smut", "Smut"], // 5.- Carbón comun del maiz
     ["Río Cuarto"], // 6.- Mal de Rio Cuarto
-  ]); //
+  ]); //np
   const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
     ["Acari", "Mite"], // Limon Enfermedaad  1. Acaro de las Yemas  Limon 1
     ["Xanthomonas citri ", "Citrus canker"], // 2. Cancrosis
@@ -56,9 +56,9 @@ export default function BuscarImagen() {
     ["Loose smut of barley", ""], // 1.Carbon volador Ejemplo de enfermedad 2 Trigo 3
     ["Pyrenophora tritici-repentis", ""], // 2.Mancha amarilla
     ["Fusarium wilt ", "Fusarium oxysporum", "Fusarium"], // 3. Fusariosis
-    ["Stem rust", ""], // 4. Carbon cubierto o caries
-    ["Mosaic virus ", "Soil-borne wheat mosaic virus"], // 5. Mosaico estriaado
-    //["Puccinia graminis", ""], // Roya del tallo (Falta hacer boton)
+    ["Puccinia graminis", "Plant pathology Trigo"], // 4. Roya del tallo
+    ["Stem rust", ""], // 5. Carbon cubierto o caries
+    ["Mosaic virus ", "Soil-borne wheat mosaic virus"], // 6. Mosaico estriaado
   ]); //
   const [diccionarioUva, setdiccionarioUva] = React.useState<string[][]>([
     ["Oidium Uva", "powdery mildew Uva"], //1 Oidio de la vid
@@ -77,8 +77,8 @@ export default function BuscarImagen() {
       "Ramularia Cebada",
     ], // 3 Ramularia
     ["Helminthosporium Cebada", "Pyrenophora teres Cebada"], // 4 Helmintosporiosis
-    ["Septoria", "Zymoseptoria tritici"], // Septoria
-    [("Rhynchosporium secalis Cebada", "")], // 6 Rincosporiosis
+    ["Septoria", "Zymoseptoria tritici"], // 5 Septoria
+    ["Rhynchosporium secalis Cebada", ""], // 6 Rincosporiosis
   ]); //
   let listaDiccionarios: string[][][] = [
     diccionarioMaiz,
