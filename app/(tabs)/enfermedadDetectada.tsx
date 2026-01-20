@@ -136,7 +136,7 @@ export default function EnfermedadDetectada() {
       </Text>
       <br />
       {enfermedades[mostrarEnf] && (
-        <View
+        <TouchableOpacity
           style={{
             alignItems: "center",
             marginTop: 20,
@@ -175,8 +175,41 @@ export default function EnfermedadDetectada() {
           <Text style={{ fontFamily: "Roboto_400Regular" }}>
             {enfermedades[mostrarEnf].quimicas}
           </Text>
-        </View>
+        </TouchableOpacity>
       )}
+      <TouchableOpacity
+        onPress={() =>
+          router.push(
+            `/listadoProductos?cultivoId=${cultivoId}&enfermedadId=${mostrarEnf}`,
+          )
+        }
+        style={{
+          backgroundColor: "#27352F",
+          padding: 10,
+          borderRadius: 20,
+          width: "60%",
+          justifyContent: "center",
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.3,
+          margin: 15,
+          shadowRadius: 4,
+        }}
+      >
+        <Text
+          style={{
+            color: "#F6FFF8",
+            fontFamily: "Roboto_700Bold",
+            fontSize: 20,
+            fontWeight: "bold",
+            textAlign: "center",
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        >
+          Ir a Listado de Productos
+        </Text>
+      </TouchableOpacity>
       <View
         style={{
           alignItems: "center",
@@ -186,36 +219,6 @@ export default function EnfermedadDetectada() {
       >
         <br />
         <br />
-
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#27352F",
-            padding: 10,
-            borderRadius: 20,
-            width: "60%",
-            justifyContent: "center",
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.3,
-            margin: 15,
-            shadowRadius: 4,
-          }}
-          onPress={() => router.push("/listadoProductos")}
-        >
-          <Text
-            style={{
-              color: "#F6FFF8",
-              fontFamily: "Roboto_700Bold",
-              fontSize: 20,
-              fontWeight: "bold",
-              textAlign: "center",
-              marginTop: 10,
-              marginBottom: 10,
-            }}
-          >
-            Ir a Listado de Productos
-          </Text>
-        </TouchableOpacity>
       </View>
 
       <br />
