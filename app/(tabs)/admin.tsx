@@ -30,7 +30,7 @@ export default function Admin() {
   const [primDescripcion, setPrimDescripcion] = useState<string[]>([""]); //Descripcion primera
   const [segDescripcion, setSegDescripcion] = useState<string[]>([""]); // Segunda descripcion en selección producto (profundización )
   const [imgBiologicas, setImgBiologicas] = useState<string[]>([""]);
-  const [enfermedades, setEnfermedades] = useState<string[]>([]); // para definir el array
+  const [enfermedades, setEnfermedades] = useState<Enfermedad[]>([]); // para definir el array
   const [seleccionarEnfermedad, setSeleccionarEnfermedad] =
     useState<string>("");
   const [valor, setValor] = useState<string>(""); // para definir el valor
@@ -46,6 +46,18 @@ export default function Admin() {
   const [postsPorPaginaEnfermedades] = useState(4); // cuantos posts por pagina
   const [paginasTotalesEnfermedades, setPaginasTotalesEnfermedades] =
     useState(0); // cuantas paginas totales
+  type Enfermedad = {
+    id: string;
+    Titulo: string;
+    [key: string]: any;
+    a: string;
+    imgQuimicas: string[];
+    primDescripcion: string[];
+    segDescripcion: string[];
+  };
+  const [enfermedadFiltrada, setEnfermedadFiltrada] = useState<
+    Enfermedad | undefined
+  >();
 
   const urlPermalinkaUrl = () => {
     const permalink = urlgit
@@ -55,8 +67,20 @@ export default function Admin() {
   };
   const ModificarEnfermedad = async (id: any) => {
     try {
-      const Titulo = prompt("ingrese nombre de enfermedad ya modificada");
-      const a = prompt("ingrese descripción");
+      const enfermedadFiltrada2 = enfermedades.find(
+        (_, index) => idEnfermedad[index] === id,
+      );
+      setEnfermedadFiltrada(enfermedadFiltrada2 as unknown as Enfermedad);
+      setCultivo2(valor);
+      if (enfermedadFiltrada) {
+        alert("Titulo: " + enfermedadFiltrada.Titulo);
+        setEnfermedad(enfermedadFiltrada.Titulo);
+        setA(enfermedadFiltrada.a);
+        setImgQuimicas(enfermedadFiltrada.imgQuimicas || []);
+        setPrimDescripcion(enfermedadFiltrada.primDescripcion || []);
+        setSegDescripcion(enfermedadFiltrada.segDescripcion || []);
+        setQuimicas(enfermedadFiltrada.quimicas || []);
+      }
       await deleteDoc(
         doc(db, "bd_enfermedades_" + seleccionarEnfermedad.toLowerCase(), id),
       );
@@ -64,10 +88,8 @@ export default function Admin() {
         db,
         "bd_enfermedades_" + seleccionarEnfermedad.toLowerCase(),
       );
-      await addDoc(ref, { Titulo, a });
-      alert("Modificado exitosamente");
-      buscarImg2();
-      window.location.reload();
+
+      alert("Los valores se copiaron correctamente en los campos de edición");
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       alert("Error al modificar enfermedad: " + message);
@@ -335,7 +357,16 @@ export default function Admin() {
           setIdEnfermedad((id) => [...id, cultivo.id]);
           setEnfermedades((enfermedades2) => [
             ...enfermedades2,
-            cultivo.Titulo,
+            {
+              Titulo: cultivo.Titulo,
+              a: cultivo.a,
+              arrayImg: cultivo.arrayImg,
+              quimicas: cultivo.quimicas,
+              imgQuimicas: cultivo.imgQuimicas,
+              primDescripcion: cultivo.primDescripcion,
+              segDescripcion: cultivo.segDescripcion,
+              id: cultivo.id,
+            },
           ]);
         });
       } else {
@@ -454,7 +485,7 @@ export default function Admin() {
                 type="text"
                 placeholder="Nombre del cultivo"
                 value={cultivo2}
-                onChange={(e) => setCultivo2(e.target.value)}
+                onChange={(e) => setCultivo2(e.target.value)} // a que cultivo corresponde la enfermedad
               ></input>
             </td>
             <td>
@@ -685,7 +716,12 @@ export default function Admin() {
                   <tr key={index}>
                     <th scope="row">{index}</th>
                     <td>
-                      <h2>{point.charAt(0).toUpperCase() + point.slice(1)}</h2>
+                      <h2>
+                        {point.Titulo
+                          ? point.Titulo.charAt(0).toUpperCase() +
+                            point.Titulo.slice(1)
+                          : "No Title"}
+                      </h2>
                     </td>
 
                     <td>

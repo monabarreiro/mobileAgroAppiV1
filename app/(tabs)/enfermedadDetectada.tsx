@@ -177,39 +177,41 @@ export default function EnfermedadDetectada() {
           </Text>
         </TouchableOpacity>
       )}
-      <TouchableOpacity
-        onPress={() =>
-          router.push(
-            `/listadoProductos?cultivoId=${cultivoId}&enfermedadId=${mostrarEnf}`,
-          )
-        }
-        style={{
-          backgroundColor: "#27352F",
-          padding: 10,
-          borderRadius: 20,
-          width: "60%",
-          justifyContent: "center",
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.3,
-          margin: 15,
-          shadowRadius: 4,
-        }}
-      >
-        <Text
+      <View style={{ alignItems: "center", marginTop: 20 }}>
+        <TouchableOpacity
+          onPress={() =>
+            router.push(
+              `/listadoProductos?cultivoId=${cultivoId}&enfermedadId=${mostrarEnf}`,
+            )
+          }
           style={{
-            color: "#F6FFF8",
-            fontFamily: "Roboto_700Bold",
-            fontSize: 20,
-            fontWeight: "bold",
-            textAlign: "center",
-            marginTop: 10,
-            marginBottom: 10,
+            backgroundColor: "#27352F",
+            padding: 10,
+            borderRadius: 20,
+            width: "60%",
+            justifyContent: "center",
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.3,
+            margin: 15,
+            shadowRadius: 4,
           }}
         >
-          Ir a Listado de Productos
-        </Text>
-      </TouchableOpacity>
+          <Text
+            style={{
+              color: "#F6FFF8",
+              fontFamily: "Roboto_700Bold",
+              fontSize: 20,
+              fontWeight: "bold",
+              textAlign: "center",
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          >
+            Ir a Listado de Productos
+          </Text>
+        </TouchableOpacity>
+      </View>
       <View
         style={{
           alignItems: "center",

@@ -9,16 +9,17 @@ export default function ListadoProductos() {
   const [enfermedades, setEnfermedades] = useState<
     { id: string; [key: string]: any }[]
   >([]);
+
   const [descripcionEnf, setDescripcionEnf] = useState<
     { id: string; [key: string]: any }[]
   >([]);
-  const [titulo, setTitulo] = useState<string[]>([]);
+  const [Titulo, setTitulo] = useState<string[]>([]);
   const [primDescripcion, setPrimDescripcion] = useState<string[]>([]);
   const [segDescripcion, setSegDescripcion] = useState<string[]>([]);
   const [imagenProducto, setImagenProducto] = useState<string[]>([]);
-
+  let enfermedadesList;
   const { cultivoId } = useLocalSearchParams<{ cultivoId: string }>();
-
+  const { enfermedadId } = useLocalSearchParams<{ enfermedadId: string }>();
   const removeAccents = (str: string): string => {
     const accents: { [key: string]: string } = {
       á: "a",
@@ -42,25 +43,25 @@ export default function ListadoProductos() {
   };
   const [producto, setProducto] = useState<
     {
-      titulo: string;
+      Titulo: string;
       descripcion: string;
       imagen: string;
     }[]
   >([
     {
-      titulo: "Producto",
+      Titulo: "Producto",
       descripcion: "Descripción",
       imagen:
         "https://monabarreiroimagenesagroappi.netlify.app/imagenes/maxentis.jpg",
     },
     {
-      titulo: "Producto",
+      Titulo: "Producto",
       descripcion: "Descripción",
       imagen:
         "https://monabarreiroimagenesagroappi.netlify.app/imagenes/maxentis.jpg",
     },
     {
-      titulo: "Producto",
+      Titulo: "Producto",
       descripcion: "Descripción",
       imagen:
         "https://monabarreiroimagenesagroappi.netlify.app/imagenes/maxentis.jpg",
@@ -100,11 +101,32 @@ export default function ListadoProductos() {
             "bd_enfermedades_" + cultivoKey,
           );
           const enfermedadesSnapshot = await getDocs(enfermedadesCollection);
-          const enfermedadesList = enfermedadesSnapshot.docs.map((doc) => ({
+          let enfermedadesList = enfermedadesSnapshot.docs.map((doc) => ({
             id: doc.id,
-            ...doc.data(),
-          }));
-          setEnfermedades(enfermedadesList);
+            ...(doc.data() as {
+              Titulo: string;
+              a: string;
+              quimicas: string[];
+              primDescripcion: string[];
+              segDescripcion: string[];
+              imgQuimicas: string[];
+            }),
+          })) as {
+            id: string;
+            Titulo: string;
+            a: string;
+            quimicas: string[];
+            primDescripcion: string[];
+            segDescripcion: string[];
+            imgQuimicas: string[];
+          }[];
+
+          if (enfermedadesList) {
+            let numero = parseInt(enfermedadId);
+
+            setEnfermedades(enfermedadesList);
+            console.log(enfermedades);
+          }
 
           // initialize mostrar array: only the item matching enfermedadId (converted to number) will be true
         } catch (error) {
@@ -114,7 +136,7 @@ export default function ListadoProductos() {
 
       fetchEnfermedades();
       return () => {
-        setEnfermedades([]);
+        setEnfermedades([]); //comentado por el momento
       };
     }, [cultivoId]),
   );
@@ -124,60 +146,94 @@ export default function ListadoProductos() {
       <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center" }}>
         Productos Disponibles
       </Text>
-      {enfermedades.map((producto, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() =>
-            router.push({
-              pathname: "/productoSeleccionado",
-              params: { product: JSON.stringify(producto) },
-            })
-          }
-        >
-          <View
-            style={{
-              marginBottom: 20,
-              backgroundColor: "#F6FFF8",
-              padding: 10,
-              borderRadius: 20,
-              width: "80%",
-              shadowColor: "#8a8585ff",
-              shadowOffset: { width: 4, height: 4 },
-              shadowOpacity: 0.3,
-              margin: 15,
-              shadowRadius: 4,
-              flexDirection: "column",
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-              }}
-            >
-              <Image
-                source={{ uri: producto.imgQuimicas[index] }}
-                style={{
-                  width: 100,
-                  height: 100,
-                  marginTop: 10,
-                  resizeMode: "contain",
-                }}
-              />
+      {enfermedades &&
+        enfermedades[Number(enfermedadId)]?.quimicas?.map(
+          (_quimica: string, index: number) => {
+            const Titulo = enfermedades[Number(enfermedadId)]?.Titulo || "";
+            const quimica =
+              enfermedades[Number(enfermedadId)]?.quimicas?.[index] || "";
+            const primDesc =
+              enfermedades[Number(enfermedadId)]?.primDescripcion?.[index] ||
+              "";
+            const img =
+              enfermedades[Number(enfermedadId)]?.imgQuimicas?.[index] || "";
+            const segDescripcion =
+              enfermedades[Number(enfermedadId)]?.segDescripcion?.[index] || "";
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() =>
+                  router.push({
+                    pathname: "/productoSeleccionado",
+                    params: {
+                      product: JSON.stringify({
+                        Titulo,
+                        quimica,
+                        primDescripcion: primDesc,
+                        segDescripcion: segDescripcion,
+                        imagen: img,
+                      }),
+                    },
+                  })
+                }
+              >
+                <View
+                  style={{
+                    marginBottom: 20,
+                    backgroundColor: "#F6FFF8",
+                    padding: 10,
+                    borderRadius: 20,
+                    width: "80%",
+                    shadowColor: "#8a8585ff",
+                    shadowOffset: { width: 4, height: 4 },
+                    shadowOpacity: 0.3,
+                    margin: 15,
+                    shadowRadius: 4,
+                    flexDirection: "column",
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                    }}
+                  >
+                    {img ? (
+                      <Image
+                        source={{ uri: img || "" }}
+                        style={{
+                          width: 100,
+                          height: 100,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                        }}
+                      />
+                    ) : null}
 
-              <View style={{ marginRight: 12, flex: 1 }}>
-                <Text style={{ fontSize: 16, marginTop: 10, marginLeft: 30 }}>
-                  {producto.primDescripcion[index]}
-                </Text>
-              </View>
-              <br />
-            </View>
-
-            <Text style={{ fontSize: 20, fontWeight: "bold", flex: 1 }}>
-              {producto.quimicas[index]}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      ))}
+                    <View style={{ marginRight: 12, flex: 1 }}>
+                      {primDesc ? (
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            marginTop: 10,
+                            marginLeft: 30,
+                          }}
+                        >
+                          {primDesc}
+                        </Text>
+                      ) : null}
+                    </View>
+                    <br />
+                  </View>
+                  {quimica ? (
+                    <Text style={{ fontSize: 20, fontWeight: "bold", flex: 1 }}>
+                      {quimica}
+                    </Text>
+                  ) : null}
+                </View>
+              </TouchableOpacity>
+            );
+          },
+        )}
 
       <TouchableOpacity
         style={{

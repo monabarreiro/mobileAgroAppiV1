@@ -35,7 +35,10 @@ export default function ProductoSeleccionado() {
           style={{ width: 100, height: 100, marginTop: 10 }}
         />
         <Text style={{ fontSize: 16, marginTop: 10 }}>
-          {product?.descripcion}
+          {product?.primDescripcion}
+        </Text>
+        <Text style={{ fontSize: 16, marginTop: 10 }}>
+          {product?.segDescripcion}
         </Text>
         <TouchableOpacity
           style={{
