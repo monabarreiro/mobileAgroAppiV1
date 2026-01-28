@@ -333,6 +333,7 @@ export default function Admin() {
 
     alert("Enfermedad creada con éxito");
     buscarImg2();
+    window.location.reload(); // para refrescar la pagina
   };
   const buscarImg2 = async () => {
     try {

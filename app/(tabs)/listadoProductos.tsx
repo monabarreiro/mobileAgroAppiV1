@@ -142,10 +142,33 @@ export default function ListadoProductos() {
   );
 
   return (
-    <ScrollView style={{ marginTop: 50 }}>
-      <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center" }}>
+    <ScrollView style={{ marginTop: 10 }}>
+      <TouchableOpacity
+        style={{ marginTop: 0, marginLeft: 20 }}
+        onPress={() =>
+          router.push(
+            `/(tabs)/enfermedadDetectada?cultivoId=${encodeURIComponent(
+              cultivoId || "",
+            )}&enfermedadId=${encodeURIComponent(enfermedadId)}`,
+          )
+        }
+      >
+        <Image
+          style={{ width: 50, height: 50, marginBottom: 10 }}
+          source={require("./img/volver.png")}
+        />
+        <Text
+          style={{
+            fontFamily: "Roboto_400Regular",
+            fontSize: 14,
+            color: "black",
+          }}
+        ></Text>
+      </TouchableOpacity>
+      <Text style={{ fontSize: 24, fontWeight: "bold", textAlign: "center" }}>
         Productos Disponibles
       </Text>
+
       {enfermedades &&
         enfermedades[Number(enfermedadId)]?.quimicas?.map(
           (_quimica: string, index: number) => {
@@ -167,6 +190,8 @@ export default function ListadoProductos() {
                     pathname: "/productoSeleccionado",
                     params: {
                       product: JSON.stringify({
+                        cultivoId,
+                        enfermedadId,
                         Titulo,
                         quimica,
                         primDescripcion: primDesc,
@@ -198,15 +223,28 @@ export default function ListadoProductos() {
                     }}
                   >
                     {img ? (
-                      <Image
-                        source={{ uri: img || "" }}
-                        style={{
-                          width: 100,
-                          height: 100,
-                          marginTop: 10,
-                          resizeMode: "contain",
-                        }}
-                      />
+                      <View>
+                        <Image
+                          source={{ uri: img || "" }}
+                          style={{
+                            width: 100,
+                            height: 100,
+                            marginTop: 10,
+                            resizeMode: "contain",
+                          }}
+                        />
+
+                        <Text
+                          style={{
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            flex: 1,
+                            textAlign: "center",
+                          }}
+                        >
+                          {quimica}
+                        </Text>
+                      </View>
                     ) : null}
 
                     <View style={{ marginRight: 12, flex: 1 }}>
@@ -224,11 +262,11 @@ export default function ListadoProductos() {
                     </View>
                     <br />
                   </View>
-                  {quimica ? (
+                  {/*    {quimica ? (
                     <Text style={{ fontSize: 20, fontWeight: "bold", flex: 1 }}>
                       {quimica}
                     </Text>
-                  ) : null}
+                  ) : null} */}
                 </View>
               </TouchableOpacity>
             );
@@ -259,6 +297,8 @@ export default function ListadoProductos() {
           Búsquedas de Agronomías cercanas a tu campo
         </Text>
       </TouchableOpacity>
+      <br />
+      <br />
     </ScrollView>
   );
 }
