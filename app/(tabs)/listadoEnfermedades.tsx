@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -18,6 +19,10 @@ export default function ListadoEnfermedades() {
 
   const [mostrarQuimicas, setMostrarQuimicas] = useState<boolean[]>([]);
   const [mostrarBiologicas, setMostrarBiologicas] = useState<boolean[]>([]);
+  let historialArray1: { url: string; fecha: string }[] = [
+    { url: "Historial Vacío", fecha: " " },
+  ];
+  const [historialArray, setHistorialArray] = React.useState(historialArray1); // Est
 
   const router = useRouter();
   const auth = getAuth();
@@ -135,6 +140,38 @@ export default function ListadoEnfermedades() {
 
   let styleExtra = { backgroundColor: "#f4ea53ff" };
 
+  const guardarHistorial = async (url: string) => {
+    try {
+      const historial = await AsyncStorage.getItem("historial");
+
+      setHistorialArray(historial ? JSON.parse(historial) : []); // Actualiza el estado para re-renderizar)
+
+      pushHistorialArray(url);
+      console.log("Historial actualizado:", historialArray);
+      await AsyncStorage.setItem("historial", JSON.stringify(historialArray));
+    } catch (error) {
+      console.log("Error al guardar el historial:", error);
+    }
+  };
+  const pushHistorialArray = async (url: string) => {
+    setHistorialArray((prevArray) => [
+      ...prevArray,
+      { url, fecha: new Date().toISOString() },
+    ]);
+  };
+  const iniciarHistorial = async () => {
+    try {
+      const historial = await AsyncStorage.getItem("historial");
+      setHistorialArray(historial ? JSON.parse(historial) : []); // Actualiza el estado para re-renderizar)
+    } catch (error) {
+      console.log("Error al iniciar el historial:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    iniciarHistorial();
+  }, []);
+
   return (
     <ScrollView>
       <TouchableOpacity
@@ -185,11 +222,12 @@ export default function ListadoEnfermedades() {
               width: "80%",
               alignItems: "center",
             }}
-            onPress={() =>
+            onPress={() => {
+              guardarHistorial(`${cultivoId} - ${enfermedad.Titulo}`);
               router.push(
                 `/(tabs)/enfermedadDetectada?cultivoId=${encodeURIComponent(cultivoId || "")}&enfermedadId=${index}`,
-              )
-            }
+              );
+            }}
           >
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>
               {enfermedad.Titulo}
