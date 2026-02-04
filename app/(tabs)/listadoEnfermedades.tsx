@@ -136,115 +136,78 @@ export default function ListadoEnfermedades() {
   let styleExtra = { backgroundColor: "#f4ea53ff" };
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 20,
-        marginTop: 50,
-      }}
-    >
-      <Text style={{ fontSize: 40, fontWeight: "bold", textAlign: "center" }}>
-        Listado de Enfermedades
-      </Text>
-
-      <Image
-        source={textoImagen}
-        style={{ width: 200, height: 200, borderRadius: 20 }}
-      />
-      <Text style={{ fontSize: 40, fontWeight: "bold", textAlign: "center" }}>
-        {cultivoId}
-      </Text>
-      {enfermedades.map((enfermedad, index) => (
-        <TouchableOpacity
-          key={enfermedad.id}
+    <ScrollView>
+      <TouchableOpacity
+        style={{ marginTop: 20, marginLeft: 40 }}
+        onPress={() => router.push(`/(tabs)/SeleccionarCultivos`)}
+      >
+        <Image
+          style={{ width: 50, height: 50, marginBottom: 10 }}
+          source={require("./img/volver.png")}
+        />
+        <Text
           style={{
-            backgroundColor:
-              enfermedadId === String(index)
-                ? styleExtra.backgroundColor
-                : "#b6eab8ff",
-            padding: 10,
-            borderRadius: 5,
-            width: "80%",
-            alignItems: "center",
+            fontFamily: "Roboto_400Regular",
+            fontSize: 14,
+            color: "black",
           }}
-          onPress={() =>
-            router.push(
-              `/(tabs)/enfermedadDetectada?cultivoId=${encodeURIComponent(cultivoId || "")}&enfermedadId=${index}`,
-            )
-          }
-        >
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-            {enfermedad.Titulo}
-          </Text>
-          {mostrarEnf[index] && (
-            <View style={{ marginTop: 10, alignItems: "center" }}>
-              <Text style={{ fontSize: 16 }}>{enfermedad.a}</Text>
-
-              <TouchableOpacity
-                onPress={() => mostrarSolucionesQuimicas(index)}
-                style={{ marginTop: 10 }}
-              >
-                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                  Soluciones Químicas
-                </Text>
-              </TouchableOpacity>
-
-              {mostrarQuimicas[index] && (
-                <View>
-                  <Text style={{ fontSize: 16 }}>{enfermedad.quimicas} </Text>
-                  {enfermedad.imgQuimicas &&
-                    Array.isArray(enfermedad.imgQuimicas) &&
-                    enfermedad.imgQuimicas.map(
-                      (imgUrl: string, imgIndex: number) => (
-                        <Image
-                          key={imgIndex}
-                          source={{ uri: imgUrl }}
-                          style={{ width: 70, height: 50 }}
-                        />
-                      ),
-                    )}
-                </View>
-              )}
-              <TouchableOpacity
-                onPress={() => mostrarSolucionesBiologicas(index)}
-                style={{ marginTop: 10 }}
-              >
-                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                  Soluciones Biológicas
-                </Text>
-              </TouchableOpacity>
-              {mostrarBiologicas[index] && (
-                <View>
-                  <Text style={{ fontSize: 16 }}>{enfermedad.biologicas} </Text>
-                  {enfermedad.imgBiologicas &&
-                    Array.isArray(enfermedad.imgBiologicas) &&
-                    enfermedad.imgBiologicas.map(
-                      (imgUrl: string, imgIndex: number) => (
-                        <Image
-                          key={imgIndex}
-                          source={{ uri: imgUrl }}
-                          style={{ width: 70, height: 50 }}
-                        />
-                      ),
-                    )}
-                </View>
-              )}
-            </View>
-          )}
-        </TouchableOpacity>
-      ))}
-
-      <TouchableOpacity onPress={() => refreshCultivos()}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-          Volver a la lista de cultivos
-        </Text>
+        ></Text>
       </TouchableOpacity>
-      <br />
-      <br />
-      <br />
-      <br />
-      <Footer />
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 20,
+          marginTop: 20,
+        }}
+      >
+        <Text style={{ fontSize: 40, fontWeight: "bold", textAlign: "center" }}>
+          Listado de Enfermedades
+        </Text>
+
+        <Image
+          source={textoImagen}
+          style={{ width: 200, height: 200, borderRadius: 20 }}
+        />
+        <Text style={{ fontSize: 40, fontWeight: "bold", textAlign: "center" }}>
+          {cultivoId}
+        </Text>
+        {enfermedades.map((enfermedad, index) => (
+          <TouchableOpacity
+            key={enfermedad.id}
+            style={{
+              backgroundColor:
+                enfermedadId === String(index)
+                  ? styleExtra.backgroundColor
+                  : "#b6eab8ff",
+              padding: 10,
+              borderRadius: 5,
+              width: "80%",
+              alignItems: "center",
+            }}
+            onPress={() =>
+              router.push(
+                `/(tabs)/enfermedadDetectada?cultivoId=${encodeURIComponent(cultivoId || "")}&enfermedadId=${index}`,
+              )
+            }
+          >
+            <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+              {enfermedad.Titulo}
+            </Text>
+          </TouchableOpacity>
+        ))}
+
+        <TouchableOpacity onPress={() => refreshCultivos()}>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+            Volver a la lista de cultivos
+          </Text>
+        </TouchableOpacity>
+        <br />
+        <br />
+        <br />
+        <br />
+        <Footer />
+      </View>
     </ScrollView>
   );
 }

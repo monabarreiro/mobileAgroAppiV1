@@ -10,6 +10,7 @@ import * as imagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Linking, Text, TouchableOpacity, View } from "react-native"; // Modulos necesarios
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function BuscarImagen() {
   const router = useRouter();
@@ -29,12 +30,12 @@ export default function BuscarImagen() {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const [diccionarioMaiz, setdiccionarioMaiz] = React.useState<string[][]>([
-    ["White patches", "Pantoea ananatis"], // 1.- Mancha blanca
-    ["Pathology", "Plant pathology"], // 2.- Roya del maiz
-    ["Estrès hídric"], // 3. estres hídrico
-    ["Plant diseases", "Blight"], //4.- Tizon del maiz
-    ["Corn smut", "Smut"], // 5.- Carbón comun del maiz
-    ["Río Cuarto"], // 6.- Mal de Rio Cuarto
+    ["Plant diseases", "Blight"], //1.- Tizon del maiz
+    ["Estrès hídric"], // 2. estres hídrico
+    ["Río Cuarto"], // 3.- Mal de Rio Cuarto
+    ["Corn smut", "Smut"], //4.- Carbón comun del maiz
+    ["White patches", "Pantoea ananatis"], // 5.- Mancha blanca
+    ["Pathology", "Plant pathology"], // 6.- Roya del maiz
   ]); //np
   const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
     ["Acari", "Mite"], // Limon Enfermedaad  1. Acaro de las Yemas  Limon 1
@@ -176,15 +177,23 @@ export default function BuscarImagen() {
       const labelAnnotations =
         data.responses?.[0]?.webDetection?.webEntities || [];
       setLabels(labelAnnotations.map((l: any) => l.description)); // es lo que genera Google Vision
-      labelAnnotations.map((l: any) => {
+      for (let o = 0; o < labelAnnotations.length; o++) {
         // Buscar en el diccionario si la etiqueta coincide con alguna enfermedad conocida
         setEnfermedadDetectada(true);
         for (let i = 0; i < listaDiccionarios[numeroCultivo].length; i++) {
-          listaDiccionarios[numeroCultivo][i].forEach((enfermedad) => {
+          for (let u = 0; u < listaDiccionarios[numeroCultivo][i].length; u++) {
+            console.log(
+              "Comparando etiqueta:",
+              labelAnnotations[o].description,
+              "con enfermedad:",
+              listaDiccionarios[numeroCultivo][i][u],
+            );
+            const enfermedad = listaDiccionarios[numeroCultivo][i][u];
             if (
-              removeAccents(l.description.toLowerCase()).includes(
-                removeAccents(enfermedad.toLowerCase()),
-              )
+              removeAccents(
+                labelAnnotations[o].description.toLowerCase(),
+              ).includes(removeAccents(enfermedad.toLowerCase())) &&
+              textoPosiblesEnfermedades.length === 0
             ) {
               setTextoPosiblesEnfermedades([
                 "/listadoEnfermedades?cultivoId=" +
@@ -195,9 +204,9 @@ export default function BuscarImagen() {
 
               return; // Salir del bucle una vez que se encuentra una coincidencia}
             }
-          });
+          }
         }
-      });
+      }
 
       // if (textoPosiblesEnfermedades.length === 0) {
       // alert("No pudimos encontrar enfermedades con esa imagen. \nPor favor, inténtalo de nuevo con otra imagen o dirígete al listado de enfermedades.");
@@ -259,7 +268,7 @@ export default function BuscarImagen() {
       style={{ flex: 1, padding: 10 }}
       resizeMode="cover"
     >
-      <View>
+      <ScrollView style={{ flex: 1 }}>
         <div
           style={{
             flex: 1,
@@ -493,7 +502,7 @@ export default function BuscarImagen() {
               </Text>
             )}
         </div>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 }

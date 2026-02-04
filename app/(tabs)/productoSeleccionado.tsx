@@ -17,6 +17,9 @@ export default function ProductoSeleccionado() {
       console.log("No se puede abrir la URL:", url);
     }
   };
+  const reemplazarEspacios = (str: string): string => {
+    return str.replace(/\s+/g, "-");
+  };
 
   return (
     <ScrollView>
@@ -94,7 +97,11 @@ export default function ProductoSeleccionado() {
                 flexDirection: "column",
                 justifyContent: "center",
               }}
-              onPress={() => handleLinking("https://www.mercadolibre.com.ar/")} //PONER LINK A LENS AI AQUÍ
+              onPress={() =>
+                handleLinking(
+                  `https://listado.mercadolibre.com.ar//${encodeURIComponent(reemplazarEspacios(product.quimica))}`,
+                )
+              } //PONER LINK A LENS AI AQUÍ
             >
               <Text
                 style={{

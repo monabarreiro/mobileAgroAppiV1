@@ -101,13 +101,17 @@ export default function EnfermedadDetectada() {
         setEnfermedades([]);
         setMostrarEnf(0);
       };
-    }, [cultivoId]),
+    }, [enfermedadId, cultivoId]),
   );
   return (
     <View style={{ height: "100%" }}>
       <TouchableOpacity
         style={{ marginTop: 40, marginLeft: 20 }}
-        onPress={() => router.push("/SeleccionarCultivos")}
+        onPress={() =>
+          router.push(
+            `/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivoId || "")}`,
+          )
+        }
       >
         <Image
           style={{ width: 50, height: 50, marginBottom: 10 }}
@@ -168,12 +172,6 @@ export default function EnfermedadDetectada() {
             }}
           >
             {enfermedades[mostrarEnf].a}
-          </Text>
-          <Text style={{ fontFamily: "Roboto_400Regular" }}>
-            {enfermedades[mostrarEnf].biologicas}
-          </Text>
-          <Text style={{ fontFamily: "Roboto_400Regular" }}>
-            {enfermedades[mostrarEnf].quimicas}
           </Text>
         </TouchableOpacity>
       )}
