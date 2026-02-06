@@ -19,8 +19,9 @@ export default function ListadoEnfermedades() {
 
   const [mostrarQuimicas, setMostrarQuimicas] = useState<boolean[]>([]);
   const [mostrarBiologicas, setMostrarBiologicas] = useState<boolean[]>([]);
-  let historialArray1: { url: string; fecha: string }[] = [
-    { url: "Historial Vacío", fecha: " " },
+
+  let historialArray1: { url: string; fecha: string; nombre: string }[] = [
+    { url: "Historial Vacío", fecha: " ", nombre: "Historial Vacío" },
   ];
   const [historialArray, setHistorialArray] = React.useState(historialArray1); // Est
 
@@ -140,25 +141,6 @@ export default function ListadoEnfermedades() {
 
   let styleExtra = { backgroundColor: "#f4ea53ff" };
 
-  const guardarHistorial = async (url: string) => {
-    try {
-      const historial = await AsyncStorage.getItem("historial");
-
-      setHistorialArray(historial ? JSON.parse(historial) : []); // Actualiza el estado para re-renderizar)
-
-      pushHistorialArray(url);
-      console.log("Historial actualizado:", historialArray);
-      await AsyncStorage.setItem("historial", JSON.stringify(historialArray));
-    } catch (error) {
-      console.log("Error al guardar el historial:", error);
-    }
-  };
-  const pushHistorialArray = async (url: string) => {
-    setHistorialArray((prevArray) => [
-      ...prevArray,
-      { url, fecha: new Date().toISOString() },
-    ]);
-  };
   const iniciarHistorial = async () => {
     try {
       const historial = await AsyncStorage.getItem("historial");
@@ -170,7 +152,31 @@ export default function ListadoEnfermedades() {
 
   React.useEffect(() => {
     iniciarHistorial();
+    console.log("Historial iniciado:", historialArray);
   }, []);
+
+  const guardarHistorial = async (url: string, titulo: string) => {
+    try {
+      const historial = await AsyncStorage.getItem("historial");
+
+      // setHistorialArray(historial ? JSON.parse(historial) : []); // Actualiza el estado para re-renderizar)
+      pushHistorialArray(url, titulo);
+      console.log("Historial actualizado:", historialArray);
+    } catch (error) {
+      console.log("Error al guardar el historial:", error);
+    }
+  };
+  const pushHistorialArray = async (url: string, titulo: string) => {
+    setHistorialArray((prev) => {
+      const updated = [
+        ...prev,
+        { url, nombre: titulo, fecha: new Date().toISOString() },
+      ];
+
+      AsyncStorage.setItem("historial", JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   return (
     <ScrollView>
@@ -223,7 +229,10 @@ export default function ListadoEnfermedades() {
               alignItems: "center",
             }}
             onPress={() => {
-              guardarHistorial(`${cultivoId} - ${enfermedad.Titulo}`);
+              guardarHistorial(
+                `${cultivoId} - ${index} `,
+                ` ${enfermedad.Titulo} `,
+              );
               router.push(
                 `/(tabs)/enfermedadDetectada?cultivoId=${encodeURIComponent(cultivoId || "")}&enfermedadId=${index}`,
               );

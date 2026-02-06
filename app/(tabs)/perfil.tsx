@@ -3,6 +3,7 @@ import {
   Roboto_700Bold,
   useFonts,
 } from "@expo-google-fonts/roboto";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Footer from "./footer";
@@ -12,6 +13,7 @@ export default function Perfil() {
     Roboto_400Regular,
     Roboto_700Bold,
   });
+  const router = useRouter();
   return (
     <ScrollView style={{ height: "100%" }}>
       <View
@@ -61,6 +63,9 @@ export default function Perfil() {
             width: "80%",
             alignItems: "center",
           }}
+          onPress={() => {
+            router.push("/infoPersonal");
+          }}
         >
           <Text
             style={{
@@ -102,6 +107,9 @@ export default function Perfil() {
             borderRadius: 5,
             width: "80%",
             alignItems: "center",
+          }}
+          onPress={() => {
+            router.push("/historial");
           }}
         >
           <Text
