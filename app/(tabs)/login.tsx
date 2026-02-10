@@ -6,7 +6,7 @@ import { useRouter } from "expo-router";
 import {
   GoogleAuthProvider,
   signInWithCredential,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import React, { useEffect } from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
@@ -19,7 +19,7 @@ export default function Login() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
-
+  console.log("appiKey", process.env.EXPO_PUBLIC_FIREBASE_API_KEY);
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId:
       "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
