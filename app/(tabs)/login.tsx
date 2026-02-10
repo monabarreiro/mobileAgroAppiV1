@@ -8,8 +8,15 @@ import {
   signInWithCredential,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+
 import React, { useEffect } from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import {
+  ImageBackground,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { auth } from "./firebaseNetlify";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -20,6 +27,12 @@ export default function Login() {
   const [error, setError] = React.useState("");
   const router = useRouter();
   console.log("appiKey", process.env.EXPO_PUBLIC_FIREBASE_API_KEY);
+  const redirectUri =
+    Platform.OS === "web"
+      ? undefined
+      : AuthSession.makeRedirectUri({
+          scheme: "mobileagroappi",
+        });
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId:
       "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
@@ -29,9 +42,7 @@ export default function Login() {
     scopes: ["openid", "profile", "email"],
     responseType: "id_token",
 
-    redirectUri: AuthSession.makeRedirectUri({
-      scheme: "mobileagroappi",
-    }),
+    redirectUri,
   });
 
   //const auth = getAuth();
