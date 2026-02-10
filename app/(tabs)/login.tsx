@@ -1,13 +1,16 @@
-
 import * as AuthSession from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
 import { useRouter } from "expo-router";
-import { getAuth, GoogleAuthProvider, signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithCredential,
+  signInWithEmailAndPassword
+} from "firebase/auth";
 import React, { useEffect } from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
-
+import { auth } from "./firebaseNetlify";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -18,18 +21,20 @@ export default function Login() {
   const router = useRouter();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId: "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
-    webClientId: "137817998022-qbcp5bo1jjsv24e147u51bgj0l0dti3e.apps.googleusercontent.com",
-   
+    iosClientId:
+      "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
+    webClientId:
+      "137817998022-qbcp5bo1jjsv24e147u51bgj0l0dti3e.apps.googleusercontent.com",
+
     scopes: ["openid", "profile", "email"],
     responseType: "id_token",
 
     redirectUri: AuthSession.makeRedirectUri({
-    scheme: "mobileagroappi",  
+      scheme: "mobileagroappi",
     }),
   });
 
-  const auth = getAuth();
+  //const auth = getAuth();
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -41,11 +46,10 @@ export default function Login() {
       else setError(String(error));
     }
   };
- const recuperarContrasena = () => {
+  const recuperarContrasena = () => {
     router.push("/recuperarContraseña");
   };
   useEffect(() => {
-    
     if (response?.type === "success") {
       const idToken = response.authentication?.idToken;
 
@@ -63,76 +67,112 @@ export default function Login() {
 
   return (
     <ImageBackground
-      source={require('./img/fondo_trigo.png')}
-      style={{ flex: 1,
-     alignItems: 'center',
-     justifyContent: 'center',
-     width: '100%',
-     height: '100%', }}
+      source={require("./img/fondo_trigo.png")}
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+      }}
     >
-      <View style={{  width: '50%' }}>
-         <div style={{ flex: 1, backgroundColor: '#A4C3B2', padding: 10,textAlign: 'center', borderRadius: 10, width:"100%" }}>
-        <h1 style={{ fontSize: 24, fontWeight: "bold", marginBottom: 30 }}>Iniciar Sesión</h1>
-      <form
-        onSubmit={handleLogin}
-        style={{
-          fontSize: 18,
-          display: "flex",
-          flexDirection: "column",
-          gap: 10,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ marginBottom: 10, width: 300, height: 30, borderRadius: 25, }}
-        />
+      <View style={{ width: "50%" }}>
+        <div
+          style={{
+            flex: 1,
+            backgroundColor: "#A4C3B2",
+            padding: 10,
+            textAlign: "center",
+            borderRadius: 10,
+            width: "100%",
+          }}
+        >
+          <h1 style={{ fontSize: 24, fontWeight: "bold", marginBottom: 30 }}>
+            Iniciar Sesión
+          </h1>
+          <form
+            onSubmit={handleLogin}
+            style={{
+              fontSize: 18,
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{
+                marginBottom: 10,
+                width: 300,
+                height: 30,
+                borderRadius: 25,
+              }}
+            />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ marginBottom: 10, width: 300, height: 30, borderRadius: 25 }}
-        />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                marginBottom: 10,
+                width: 300,
+                height: 30,
+                borderRadius: 25,
+              }}
+            />
 
-        <button style={{ backgroundColor:  "#27352F", color: "white", padding: 10, borderRadius: 10 ,width:"55%"}} type="submit">Iniciar Sesión</button>
-      </form>
-      
+            <button
+              style={{
+                backgroundColor: "#27352F",
+                color: "white",
+                padding: 10,
+                borderRadius: 10,
+                width: "55%",
+              }}
+              type="submit"
+            >
+              Iniciar Sesión
+            </button>
+          </form>
 
-      <TouchableOpacity
-        style={{
-          marginTop: 20,
-          padding: 10,
-          backgroundColor:  "#27352F",
-          borderRadius: 5,
-        }}
-        onPress={() => promptAsync()}
-        disabled={!request}
-      >
-        <Text style={{ color: "white", fontSize: 16 }}>Login with Google</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              marginTop: 20,
+              padding: 10,
+              backgroundColor: "#27352F",
+              borderRadius: 5,
+            }}
+            onPress={() => promptAsync()}
+            disabled={!request}
+          >
+            <Text style={{ color: "white", fontSize: 16 }}>
+              Login with Google
+            </Text>
+          </TouchableOpacity>
 
- <TouchableOpacity
-        style={{
-          marginTop: 20,
-          padding: 10,
-          backgroundColor:  "#27352F",
-          borderRadius: 5,
-        }}
-        onPress={() => recuperarContrasena()}
-        disabled={!request}
-      >
-        <Text style={{ color: "white", fontSize: 16 }}>Recuperar Contraseña</Text>
-      </TouchableOpacity>
-      {error && <p>{error}</p>}
-      </div>
-    </View>
-  </ImageBackground>
-  
+          <TouchableOpacity
+            style={{
+              marginTop: 20,
+              padding: 10,
+              backgroundColor: "#27352F",
+              borderRadius: 5,
+            }}
+            onPress={() => recuperarContrasena()}
+            disabled={!request}
+          >
+            <Text style={{ color: "white", fontSize: 16 }}>
+              Recuperar Contraseña
+            </Text>
+          </TouchableOpacity>
+          {error && <p>{error}</p>}
+        </div>
+      </View>
+    </ImageBackground>
   );
-}  
+}

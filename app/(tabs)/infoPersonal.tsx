@@ -1,14 +1,14 @@
 import {
-    Roboto_400Regular,
-    Roboto_700Bold,
-    useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+  useFonts,
 } from "@expo-google-fonts/roboto";
-import { getAuth } from "firebase/auth";
 import { ScrollView, Text, View } from "react-native";
+import { auth } from "./firebaseNetlify";
 import Footer from "./footer";
 
 export default function InfoPersonal() {
-  const user = getAuth().currentUser;
+  const user = auth.currentUser;
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,

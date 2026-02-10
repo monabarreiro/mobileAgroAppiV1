@@ -1,5 +1,7 @@
 import { useRouter } from "expo-router";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebaseNetlify";
+
 import {
   addDoc,
   collection,
@@ -386,7 +388,7 @@ export default function Admin() {
     const value = event.target.value;
     setSeleccionarEnfermedad(removeAccents(value));
   };
-  const auth = getAuth();
+  //const auth = getAuth();
 
   onAuthStateChanged(auth, (user) => {
     if (user) {

@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import React, { useCallback, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -26,7 +25,7 @@ export default function ListadoEnfermedades() {
   const [historialArray, setHistorialArray] = React.useState(historialArray1); // Est
 
   const router = useRouter();
-  const auth = getAuth();
+  //const auth = getAuth();
   const route = useRoute();
   const { cultivoId } = route.params as { cultivoId: string | null };
   const { enfermedadId } = route.params as { enfermedadId: string | null };

@@ -1,6 +1,5 @@
 import * as Linking from "expo-linking";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
-import { getAuth } from "firebase/auth";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import React, { useCallback, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -68,7 +67,7 @@ export default function ListadoProductos() {
     },
   ]);
 
-  const auth = getAuth();
+  //const auth = getAuth();
 
   const handleLinking = async (url: string) => {
     const supported = await Linking.canOpenURL(url);
