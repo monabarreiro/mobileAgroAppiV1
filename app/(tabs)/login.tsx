@@ -220,7 +220,7 @@ export default function Login() {
             disabled={!request}
           >
             <Text style={{ color: "white", fontSize: 16 }}>
-              si no estas registrado, haz click aqui para registrarte
+              Si no estas registrado, haz click aqui para registrarte
             </Text>
           </TouchableOpacity>
           {error && <p>{error}</p>}
