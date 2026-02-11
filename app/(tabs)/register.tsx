@@ -1,14 +1,14 @@
+import { ImageBackground } from "expo-image";
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
-import { TouchableOpacity, Button, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { auth } from "./firebaseNetlify";
-import { StyleSheet } from "react-native";
-import { ImageBackground } from "expo-image";
 
- StyleSheet export default function Register() {
-  const [email, setEmail] = React.useStuseState("");
+export default function Register() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
   const handleRegister = async (e: any) => {
