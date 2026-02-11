@@ -134,15 +134,12 @@ export default function Login() {
           <h1 style={{ fontSize: 24, fontWeight: "bold", marginBottom: 30 }}>
             Iniciar Sesión
           </h1>
-          <form
-            onSubmit={(e) => handleLoginDb(e)}
+          <View
             style={{
-              fontSize: 18,
-              display: "flex",
               flexDirection: "column",
-              gap: 10,
-              justifyContent: "center",
+              gap: 20,
               alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <input
@@ -151,39 +148,36 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{
-                marginBottom: 10,
-                width: 300,
-                height: 30,
-                borderRadius: 25,
+                padding: 10,
+                borderRadius: 5,
+                border: "1px solid #ccc",
+                width: "80%",
               }}
             />
-
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{
-                marginBottom: 10,
-                width: 300,
-                height: 30,
-                borderRadius: 25,
+                padding: 10,
+                borderRadius: 5,
+                border: "1px solid #ccc",
+                width: "80%",
               }}
             />
-
-            <button
+            <TouchableOpacity
               style={{
-                backgroundColor: "#27352F",
-                color: "white",
+                marginTop: 20,
                 padding: 10,
-                borderRadius: 10,
-                width: "55%",
+                backgroundColor: "#27352F",
+                borderRadius: 5,
               }}
-              type="submit"
+              onPress={(e) => handleLoginDb(e)}
             >
-              Iniciar Sesión
-            </button>
-          </form>
+              <Text style={{ color: "white", fontSize: 16 }}>Login</Text>
+            </TouchableOpacity>
+          </View>
 
           <TouchableOpacity
             style={{
