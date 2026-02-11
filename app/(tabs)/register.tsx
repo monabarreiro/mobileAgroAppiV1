@@ -27,11 +27,19 @@ export default function Register() {
   };
   const crearUsuarioDb = async () => {
     try {
+      console.log("Creando usuario en la base de datos con email:", email);
+
       const ref = collection(getFirestore(), "usuarios");
       await addDoc(ref, {
         email,
         password,
       });
+      console.log(
+        "Usuario creado en la base de datos con email y password:",
+        email,
+        password,
+      );
+
       alert("Registro exitoso");
       router.push("/login");
     } catch (error) {
