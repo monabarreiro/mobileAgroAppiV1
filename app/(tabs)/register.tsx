@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import { Button, ImageBackground, Text, TextInput, View } from "react-native";
 import { auth } from "./firebaseNetlify";
 
 export default function Register() {
@@ -48,42 +48,44 @@ export default function Register() {
   };
 
   return (
-    <View
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 20,
-        marginTop: 50,
-      }}
-    >
-      <Text style={{ fontSize: 24, fontWeight: "bold" }}>Register</Text>
-      <TextInput
+    <ImageBackground source={require("./img/campo2.jpeg")} style={{ flex: 1 }}>
+      <View
         style={{
-          borderWidth: 1,
-          borderColor: "#ccc",
-          borderRadius: 5,
-          padding: 10,
-          width: "60%",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 20,
+          marginTop: 50,
         }}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={{
-          borderWidth: 1,
-          borderColor: "#ccc",
-          borderRadius: 5,
-          padding: 10,
-          width: "60%",
-        }}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Register" onPress={crearUsuarioDb} />
-      {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
-    </View>
+      >
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Register</Text>
+        <TextInput
+          style={{
+            borderWidth: 1,
+            borderColor: "#ccc",
+            borderRadius: 5,
+            padding: 10,
+            width: "60%",
+          }}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={{
+            borderWidth: 1,
+            borderColor: "#ccc",
+            borderRadius: 5,
+            padding: 10,
+            width: "60%",
+          }}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Button title="Register" onPress={crearUsuarioDb} />
+        {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
+      </View>
+    </ImageBackground>
   );
 }
