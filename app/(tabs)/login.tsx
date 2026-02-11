@@ -49,7 +49,9 @@ export default function Login() {
         setError("Contraseña incorrecta");
         return;
       }
-      alert("Login exitoso"); // Guardar en Localhost la sesion del usuario
+      alert("Login exitoso");
+      console.log("Usuario autenticado con email y password:", email, password);
+      // Guardar en Localhost la sesion del usuario
       router.push("/SeleccionarCultivos");
     } catch (error) {
       if (error instanceof Error) setError(error.message);
