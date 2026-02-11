@@ -2,12 +2,13 @@ import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
-import { Button, ImageBackground, StyleSheet, Text, TextInput, View } from "react-native";
+import { TouchableOpacity, Button, Text, TextInput, View } from "react-native";
 import { auth } from "./firebaseNetlify";
+import { StyleSheet } from "react-native";
+import { ImageBackground } from "expo-image";
 
-export default function Register() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+ StyleSheet export default function Register() {
+  const [email, setEmail] = React.useStuseState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
   const handleRegister = async (e: any) => {
@@ -87,6 +88,19 @@ export default function Register() {
           secureTextEntry
         />
         <Button title="Register" onPress={crearUsuarioDb} />
+        <TouchableOpacity
+          style={{
+            marginTop: 20,
+            padding: 10,
+            backgroundColor: "#27352F",
+            borderRadius: 5,
+          }}
+          onPress={() => router.push("/login")}
+        >
+          <Text style={{ color: "white", fontSize: 16 }}>
+            si ya estas registrado, haz click aqui para iniciar sesion
+          </Text>
+        </TouchableOpacity>
         {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
       </View>
     </ImageBackground>

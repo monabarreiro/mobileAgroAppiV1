@@ -208,6 +208,21 @@ export default function Login() {
               Recuperar Contraseña
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              marginTop: 20,
+              padding: 10,
+              backgroundColor: "#27352F",
+              borderRadius: 5,
+            }}
+            onPress={() => router.push("/register")}
+            disabled={!request}
+          >
+            <Text style={{ color: "white", fontSize: 16 }}>
+              si no estas registrado, haz click aqui para registrarte
+            </Text>
+          </TouchableOpacity>
           {error && <p>{error}</p>}
         </div>
       </View>
