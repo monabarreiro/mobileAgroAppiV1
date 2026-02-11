@@ -1,8 +1,9 @@
 import { useRouter } from "expo-router";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
 import { Button, Text, TextInput, View } from "react-native";
+import { auth } from "./firebaseNetlify";
 
 export default function Register() {
   const [email, setEmail] = React.useState("");
@@ -16,8 +17,6 @@ export default function Register() {
       return;
     }
     try {
-      const auth = getAuth();
-
       await createUserWithEmailAndPassword(auth, email, password);
 
       alert("Registro exitoso");
