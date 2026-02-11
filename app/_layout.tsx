@@ -6,9 +6,7 @@ export default function TabsLayout() {
       <Tabs.Screen name="index" />
       <Tabs.Screen
         name="hidden"
-        options={{
-          href: null,
-        }}
+        options={{ tabBarItemStyle: { display: "none" } }}
       />
     </Tabs>
   );
