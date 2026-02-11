@@ -33,7 +33,8 @@ export default function Login() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
-  const handleLoginDb = async () => {
+  const handleLoginDb = async (e: any) => {
+    e.preventDefault();
     try {
       const db = getFirestore();
       const usuariosRef = collection(db, "usuarios");
@@ -134,7 +135,7 @@ export default function Login() {
             Iniciar Sesión
           </h1>
           <form
-            onSubmit={handleLoginDb}
+            onSubmit={(e) => handleLoginDb(e)}
             style={{
               fontSize: 18,
               display: "flex",
