@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
-import { Button, ImageBackground, Text, TextInput, View } from "react-native";
+import { Button, ImageBackground, StyleSheet, Text, TextInput, View } from "react-native";
 import { auth } from "./firebaseNetlify";
 
 export default function Register() {
@@ -50,7 +50,7 @@ export default function Register() {
   return (
     <ImageBackground
       source={require("./img/campo2.jpeg")}
-      style={{ flex: 1, width: "100%", height: "100%" }}
+      style={styles.imageBackground}
     >
       <View
         style={{
@@ -92,3 +92,12 @@ export default function Register() {
     </ImageBackground>
   );
 }
+const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+    alignItems: "center",
+    resizeMode: "cover",
+    width: "100%",
+    height: "100%",
+  },
+});
