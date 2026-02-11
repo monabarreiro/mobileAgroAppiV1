@@ -9,6 +9,13 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useEffect } from "react";
 import {
   ImageBackground,
@@ -26,6 +33,29 @@ export default function Login() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
+  const handleLoginDb = async () => {
+    try {
+      const db = getFirestore();
+      const usuariosRef = collection(db, "usuarios");
+      const q = query(usuariosRef, where("email", "==", email));
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        setError("Usuario no encontrado");
+        return;
+      }
+      const userDoc = querySnapshot.docs[0];
+      const userData = userDoc.data();
+      if (userData.password !== password) {
+        setError("Contraseña incorrecta");
+        return;
+      }
+      alert("Login exitoso"); // Guardar en Localhost la sesion del usuario
+      router.push("/SeleccionarCultivos");
+    } catch (error) {
+      if (error instanceof Error) setError(error.message);
+      else setError(String(error));
+    }
+  };
   console.log("appiKey", process.env.EXPO_PUBLIC_FIREBASE_API_KEY);
   const redirectUri =
     Platform.OS === "web"
@@ -102,7 +132,7 @@ export default function Login() {
             Iniciar Sesión
           </h1>
           <form
-            onSubmit={handleLogin}
+            onSubmit={handleLoginDb}
             style={{
               fontSize: 18,
               display: "flex",
