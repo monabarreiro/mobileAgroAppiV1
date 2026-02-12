@@ -154,24 +154,25 @@ export default function Register() {
             backgroundColor: "#27352F",
             borderRadius: 5,
           }}
+          onPress={() => promptAsync()}
+          disabled={!request}
+        >
+          <Text style={{ color: "white", fontSize: 16 }}>
+            Regístrese con Google
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            marginTop: 20,
+            padding: 10,
+            backgroundColor: "#27352F",
+            borderRadius: 5,
+          }}
           onPress={() => router.push("/login")}
         >
-          <TouchableOpacity
-            style={{
-              marginTop: 20,
-              padding: 10,
-              backgroundColor: "#27352F",
-              borderRadius: 5,
-            }}
-            onPress={() => promptAsync()}
-            disabled={!request}
-          >
-            <Text style={{ color: "white", fontSize: 16 }}>
-              Registrese con Google
-            </Text>
-          </TouchableOpacity>
           <Text style={{ color: "white", fontSize: 16 }}>
-            si ya estas registrado, haz click aqui para iniciar sesion
+            Si ya estás registrado, haz click aquí para iniciar sesión
           </Text>
         </TouchableOpacity>
         {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
