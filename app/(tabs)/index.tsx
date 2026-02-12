@@ -5,14 +5,16 @@ import {
 } from "@expo-google-fonts/roboto";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ImageBackground,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
+
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -20,6 +22,18 @@ export default function HomeScreen() {
     Roboto_400Regular,
     Roboto_700Bold,
   });
+  useEffect(() => {
+    if (Platform.OS === "web") {
+      const hash = window.location.hash;
+
+      if (hash.includes("id_token")) {
+        router.replace("/SeleccionarCultivos");
+
+        // Clean URL
+        window.history.replaceState({}, document.title, "/");
+      }
+    }
+  }, []);
   return (
     <ImageBackground
       source={require("./img/fondo_trigo.png")}
