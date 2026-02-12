@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   setPersistence,
-  signInWithPopup
+  signInWithPopup,
 } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
@@ -140,20 +140,6 @@ export default function Register() {
           secureTextEntry
         />
         <Button title="Register" onPress={crearUsuarioDb} />
-        <TouchableOpacity
-          style={{
-            marginTop: 20,
-            padding: 10,
-            backgroundColor: "#27352F",
-            borderRadius: 5,
-          }}
-          onPress={() => ingresarConGoogle()}
-          disabled={!request}
-        >
-          <Text style={{ color: "white", fontSize: 16 }}>
-            Regístrese con Google
-          </Text>
-        </TouchableOpacity>
 
         <TouchableOpacity
           style={{
