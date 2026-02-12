@@ -190,7 +190,7 @@ export default function Login() {
             disabled={!request}
           >
             <Text style={{ color: "white", fontSize: 16 }}>
-              Login with Google
+              Login con Google
             </Text>
           </TouchableOpacity>
 
