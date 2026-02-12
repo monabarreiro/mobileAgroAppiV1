@@ -35,51 +35,52 @@ export default function BuscarImagen() {
     ["Río Cuarto"], // 3.- Mal de Rio Cuarto
     ["Corn smut", "Smut"], //4.- Carbón comun del maiz
     ["White patches", "Pantoea ananatis"], // 5.- Mancha blanca
-    ["Pathology", "Plant pathology"], // 6.- Roya del maiz
+    ["Pathology", "Plant pathology"], // 6.- Roya del maiz // oki Diccionario Maiz
   ]); //np
   const [diccionarioLimon, setdiccionarioLimon] = React.useState<string[][]>([
-    ["Acari", "Mite"], // Limon Enfermedaad  1. Acaro de las Yemas  Limon 1
-    ["Xanthomonas citri ", "Citrus canker"], // 2. Cancrosis
+    ["Diaphorina citri", "Citrus greening disease"], //1  HLB
+    ["Acari", "Mite"], // Limon Enfermedaad  1. Acaro de las Yemas  Limon 2
     ["Chlorosis"], //3 Clorosis
-    ["Mealybug ", "Lepidoptera"], //4 Cochinilla Minador de los Citricos
-    ["Diaphorina citri", "Citrus greening disease"], //5  HLB
-    ["anthracnose"], // 6 Antracnosis
+    ["Xanthomonas citri ", "Citrus canker"], // 4. Cancrosis
+    ["anthracnose"], // 5 Antracnosis
+    ["Mealybug ", "Lepidoptera"], //6 Cochinilla Minador de los Citricos  // Oki Diccionario Limon
   ]); //
   const [diccionarioSoja, setdiccionarioSoja] = React.useState<string[][]>([
-    ["Sclerotinia sclerotiorum", "Sclerotinia", "Sclerotium"], // 1.Esclerotinia.
-    ["Cercospora kikuchii", "Cercospora"], //2. Tizon purpura o Morado de la hoja
-    ["Diaporthe faseolorum var. sojae", "Diaporthe phaseolorum"], // 3.tizon del tallo y vaina
-    ["Colletotrichum gloeosporioides", "Colletotrichum truncatum"], // 4. Antracnosis
-    ["Cercospora sojina", "Frogeye leaf spot"], // 5. Mancha ojo de rana //
-    ["Septoria glycines", "Septoria"], // 6. Mancha marron en soja .    Soja 2
+    ["Cercospora kikuchii", "Cercospora"], //1. Tizon purpura o Morado de la hoja
+    ["Septoria glycines", "Septoria"], // 2. Mancha marron en soja .    Soja 2
+    ["Sclerotinia sclerotiorum", "Sclerotinia", "Sclerotium"], // 3.Esclerotinia.
+    ["Cercospora sojina", "Frogeye leaf spot"], // 4. Mancha ojo de rana //
+    ["Colletotrichum gloeosporioides", "Colletotrichum truncatum"], // 5. Antracnosis
+    ["Diaporthe faseolorum var. sojae", "Diaporthe phaseolorum"], // 6.tizon del tallo y vaina // Oki Diccionario Soja
   ]); //
   const [diccionarioTrigo, setdiccionarioTrigo] = React.useState<string[][]>([
-    ["Loose smut of barley", ""], // 1.Carbon volador Ejemplo de enfermedad 2 Trigo 3
-    ["Pyrenophora tritici-repentis", ""], // 2.Mancha amarilla
-    ["Fusarium wilt ", "Fusarium oxysporum", "Fusarium"], // 3. Fusariosis
+    ["Mosaic virus ", "Soil-borne wheat mosaic virus"], // 1. Mosaico estriaado
+    ["Stem rust", ""], // 2. Carbon cubierto o caries
+    ["Loose smut of barley", ""], // 3.Carbon volador Ejemplo de enfermedad 2 Trigo 3
     ["Puccinia graminis", "Plant pathology Trigo"], // 4. Roya del tallo
-    ["Stem rust", ""], // 5. Carbon cubierto o caries
-    ["Mosaic virus ", "Soil-borne wheat mosaic virus"], // 6. Mosaico estriaado
+    ["Pyrenophora tritici-repentis", ""], // 5.Mancha amarilla
+    ["Fusarium wilt ", "Fusarium oxysporum", "Fusarium"], // 6. Fusariosis // Ok Diccionario Trigo
   ]); //
   const [diccionarioUva, setdiccionarioUva] = React.useState<string[][]>([
-    ["Oidium Uva", "powdery mildew Uva"], //1 Oidio de la vid
-    ["Esca Uva", ""], // 2.Yesca
-    ["Botritis Uva", "Botrytis"], // 3.Botritis // cambiar
-    ["Black rot Uva", ""], // 4. Black rot
-    ["Filoxera Uva", ""], // 5. Filoxera
-    ["Mildiu Uva", ""], // 6.Mildiu
+    ["Esca Uva", ""], // 1.Yesca
+    ["Botritis Uva", "Botrytis"], // 2.Botritis //
+    ["Oidium Uva", "powdery mildew Uva"], //3 Oidio de la vid
+    ["Mildiu Uva", ""], // 4.Mildiu
+    ["Black rot Uva", ""], // 5. Black rot
+    ["Filoxera Uva", ""], // 6. Filoxera. // ok Diccionario Uva.
   ]); //
   const [diccionarioCebada, setdiccionarioCebada] = React.useState<string[][]>([
-    ["Stem rust Cebada", "Puccinia hordei Cebada"], //1Roya amarilla o anaranjada
-    ["Blumeria graminis Cebada"], // 2 oidio
+    ["Helminthosporium Cebada", "Pyrenophora teres Cebada"], // 1 Helmintosporiosis
+    ["Rhynchosporium secalis Cebada", ""], // 2 Rincosporiosis
+    ["Blumeria graminis Cebada"], // 3 oidio
+    ["Stem rust Cebada", "Puccinia hordei Cebada"], //4 Roya amarilla o anaranjada
     [
       "Ramularia collo-cygni Cebada",
       "Plant pathology Cebada",
       "Ramularia Cebada",
-    ], // 3 Ramularia
-    ["Helminthosporium Cebada", "Pyrenophora teres Cebada"], // 4 Helmintosporiosis
-    ["Septoria", "Zymoseptoria tritici"], // 5 Septoria
-    ["Rhynchosporium secalis Cebada", ""], // 6 Rincosporiosis
+    ], // 5 Ramularia
+
+    ["Septoria", "Zymoseptoria tritici"], // 6 Septoria // oki Diccionario Cebada.
   ]); //
   let listaDiccionarios: string[][][] = [
     diccionarioMaiz,
