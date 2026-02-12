@@ -4,12 +4,11 @@ import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  onAuthStateChanged,
   setPersistence,
-  signInWithCredential,
+  signInWithPopup
 } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Button,
   Platform,
@@ -50,34 +49,10 @@ export default function Register() {
 
     redirectUri, // ver que es
   });
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("Usuario logueado:", user.email);
-        router.replace("/SeleccionarCultivos");
-      } else {
-        console.log("No hay usuario");
-      }
-    });
-
-    return unsubscribe;
-  }, []);
-
-  useEffect(() => {
-    if (response?.type === "success") {
-      const idToken = response.authentication?.idToken;
-
-      if (!idToken) return;
-
-      const credential = GoogleAuthProvider.credential(idToken);
-      signInWithCredential(auth, credential)
-        .then(() => {
-          router.push("/SeleccionarCultivos");
-        })
-        .catch((err) => setError(err.message));
-      router.push("/SeleccionarCultivos");
-    }
-  }, [response]);
+  const ingresarConGoogle = async () => {
+    const Provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, Provider);
+  };
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
@@ -172,7 +147,7 @@ export default function Register() {
             backgroundColor: "#27352F",
             borderRadius: 5,
           }}
-          onPress={() => promptAsync()}
+          onPress={() => ingresarConGoogle()}
           disabled={!request}
         >
           <Text style={{ color: "white", fontSize: 16 }}>
