@@ -3,7 +3,14 @@ import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { auth } from "./firebaseNetlify";
 
 export default function Register() {
@@ -30,6 +37,15 @@ export default function Register() {
     try {
       console.log("Creando usuario en la base de datos con email:", email);
 
+      if (password.length < 5) {
+        alert("la contraseña debe superar los 6 caracteres");
+        return;
+      }
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!regex.test(email)) {
+        alert("por favor ingrese un email válido");
+        return;
+      }
       const ref = collection(getFirestore(), "usuarios");
       await addDoc(ref, {
         email,
