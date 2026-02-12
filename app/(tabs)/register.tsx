@@ -1,8 +1,11 @@
 import { ImageBackground } from "expo-image";
 import { useRouter } from "expo-router";
 import {
+  browserLocalPersistence,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  onAuthStateChanged,
+  setPersistence,
   signInWithCredential,
 } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
@@ -28,6 +31,8 @@ export default function Register() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
+  setPersistence(auth, browserLocalPersistence);
+
   const redirectUri =
     Platform.OS === "web"
       ? undefined
@@ -45,6 +50,19 @@ export default function Register() {
 
     redirectUri, // ver que es
   });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("Usuario logueado:", user.email);
+        router.replace("/SeleccionarCultivos");
+      } else {
+        console.log("No hay usuario");
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
   useEffect(() => {
     if (response?.type === "success") {
       const idToken = response.authentication?.idToken;
