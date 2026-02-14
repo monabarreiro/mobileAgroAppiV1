@@ -34,7 +34,7 @@ export default function Login() {
   const [error, setError] = React.useState("");
   const router = useRouter();
   type params = {
-    id?: string;
+    id?: string | string[];
   };
   const { id } = useLocalSearchParams<params>();
   const handleLoginDb = async (e: any) => {
@@ -66,8 +66,9 @@ export default function Login() {
   };
   useEffect(() => {
     console.log("id" + id);
-    if (id) {
-      setEmail(id);
+    const safeId = Array.isArray(id) ? id[0] : id;
+    if (safeId) {
+      setEmail(safeId);
     }
   }, [id]);
 
