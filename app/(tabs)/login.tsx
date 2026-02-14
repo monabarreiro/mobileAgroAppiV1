@@ -65,6 +65,7 @@ export default function Login() {
     }
   };
   useEffect(() => {
+    console.log("id" + id);
     if (id) {
       setEmail(id);
     }
