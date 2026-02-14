@@ -2,7 +2,7 @@ import * as AuthSession from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   GoogleAuthProvider,
   signInWithCredential,
@@ -33,6 +33,10 @@ export default function Login() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
+  type params = {
+    id?: string;
+  };
+  const { id } = useLocalSearchParams<params>();
   const handleLoginDb = async (e: any) => {
     e.preventDefault();
     try {
@@ -44,6 +48,7 @@ export default function Login() {
         setError("Usuario no encontrado");
         return;
       }
+
       const userDoc = querySnapshot.docs[0];
       const userData = userDoc.data();
       if (userData.password !== password) {
@@ -59,6 +64,12 @@ export default function Login() {
       else setError(String(error));
     }
   };
+  useEffect(() => {
+    if (id) {
+      setEmail(id);
+    }
+  }, [id]);
+
   console.log("appiKey", process.env.EXPO_PUBLIC_FIREBASE_API_KEY);
   const redirectUri =
     Platform.OS === "web"
@@ -220,7 +231,7 @@ export default function Login() {
             disabled={!request}
           >
             <Text style={{ color: "white", fontSize: 16 }}>
-              Si no estas registrado, haz click aqui para registrarte
+              Si no estás registrado, haz click aquí para registrarte
             </Text>
           </TouchableOpacity>
           {error && <p>{error}</p>}

@@ -12,9 +12,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
-
 
 export default function HomeScreen() {
   const router = useRouter();

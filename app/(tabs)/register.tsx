@@ -74,12 +74,12 @@ export default function Register() {
       console.log("Creando usuario en la base de datos con email:", email);
 
       if (password.length < 5) {
-        alert("la contraseña debe superar los 6 caracteres");
+        alert("La contraseña debe superar los 6 caracteres");
         return;
       }
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!regex.test(email)) {
-        alert("por favor ingrese un email válido");
+        alert("Por favor ingrese un email válido");
         return;
       }
       const ref = collection(getFirestore(), "usuarios");
@@ -148,7 +148,12 @@ export default function Register() {
             backgroundColor: "#27352F",
             borderRadius: 5,
           }}
-          onPress={() => router.push("/login")}
+          onPress={() =>
+            router.push({
+              pathname: "/login",
+              params: { id: email },
+            })
+          }
         >
           <Text style={{ color: "white", fontSize: 16 }}>
             Si ya estás registrado, haz click aquí para iniciar sesión
