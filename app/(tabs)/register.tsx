@@ -94,7 +94,11 @@ export default function Register() {
       );
 
       alert("Registro exitoso");
-      router.push("/login");
+
+      router.push({
+        pathname: "/login",
+        params: { id: email },
+      });
     } catch (error) {
       console.error("Error al crear el usuario en la base de datos:", error);
     }
