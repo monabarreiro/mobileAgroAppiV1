@@ -3,25 +3,29 @@ import {
   Roboto_700Bold,
   useFonts,
 } from "@expo-google-fonts/roboto";
-import React from "react";
+import React, { useState } from "react";
 import Footer from "./footer";
 
 import {
   Image,
   ImageBackground,
+  Linking,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
-
 
 export default function Home() {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
   });
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
   return (
     <ScrollView
@@ -86,7 +90,7 @@ export default function Home() {
               </Text>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   fontFamily: "Roboto_400Regular",
                   textAlign: "left",
                 }}
@@ -98,20 +102,46 @@ export default function Home() {
               </Text>
               <Text>Nombre</Text>
 
-              <input></input>
+              <input
+                type="nombre"
+                placeholder="Nombre"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+              ></input>
 
               <Text>email</Text>
 
-              <input></input>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
 
               <Text>Teléfono</Text>
 
-              <input></input>
+              <input
+                type="telefono"
+                placeholder="Teléfono"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+              ></input>
 
               <Text>Mensaje</Text>
 
-              <input></input>
-              <TouchableOpacity>
+              <input
+                type="mensaje"
+                placeholder="Mensaje"
+                value={mensaje}
+                onChange={(e) => setMensaje(e.target.value)}
+              ></input>
+              <TouchableOpacity
+                onPress={(e) =>
+                  Linking.openURL(
+                    `mailto: barreiro.monica@gmail.com? subject:${nombre} & body=${mensaje + telefono}`,
+                  )
+                }
+              >
                 <Text>Enviar formulario</Text>
               </TouchableOpacity>
             </View>
