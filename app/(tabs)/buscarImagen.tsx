@@ -16,6 +16,7 @@ export default function BuscarImagen() {
   const router = useRouter();
   const [image, setImage] = React.useState<string | null>(null);
   // Función para seleccionar una imagen de la galería
+
   const [apiKey, setApiKey] = React.useState(
     "AIzaSyB72DREydt7R2WdYu6jGjLXUJZvTjYI-zg",
   );

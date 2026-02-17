@@ -67,6 +67,7 @@ export default function Login() {
   useEffect(() => {
     console.log("id" + id);
     const safeId = Array.isArray(id) ? id[0] : id;
+
     if (safeId) {
       setEmail(safeId);
     }
