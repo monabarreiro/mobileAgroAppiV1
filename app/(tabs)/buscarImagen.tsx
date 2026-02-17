@@ -56,30 +56,30 @@ export default function BuscarImagen() {
   ]); //
   const [diccionarioTrigo, setdiccionarioTrigo] = React.useState<string[][]>([
     ["Mosaic virus ", "Soil-borne wheat mosaic virus"], // 1. Mosaico estriaado
-    ["Stem rust", ""], // 2. Carbon cubierto o caries
-    ["Loose smut of barley", ""], // 3.Carbon volador Ejemplo de enfermedad 2 Trigo 3
+    ["Stem rust"], // 2. Carbon cubierto o caries
+    ["Loose smut of barley"], // 3.Carbon volador Ejemplo de enfermedad 2 Trigo 3
     ["Puccinia graminis", "Plant pathology Trigo"], // 4. Roya del tallo
-    ["Pyrenophora tritici-repentis", ""], // 5.Mancha amarilla
+    ["Pyrenophora tritici-repentis"], // 5.Mancha amarilla
     ["Fusarium wilt ", "Fusarium oxysporum", "Fusarium"], // 6. Fusariosis // Ok Diccionario Trigo
   ]); //
   const [diccionarioUva, setdiccionarioUva] = React.useState<string[][]>([
-    ["Esca Uva", ""], // 1.Yesca
+    ["Esca Uva"], // 1.Yesca
     ["Botritis Uva", "Botrytis"], // 2.Botritis //
     ["Oidium Uva", "powdery mildew Uva"], //3 Oidio de la vid
-    ["Mildiu Uva", ""], // 4.Mildiu
-    ["Black rot Uva", ""], // 5. Black rot
-    ["Filoxera Uva", ""], // 6. Filoxera. // ok Diccionario Uva.
+    ["Mildiu Uva"], // 4.Mildiu
+    ["Black rot Uva"], // 5. Black rot
+    ["Filoxera Uva"], // 6. Filoxera. // ok Diccionario Uva.
   ]); //
   const [diccionarioCebada, setdiccionarioCebada] = React.useState<string[][]>([
     ["Helminthosporium Cebada", "Pyrenophora teres Cebada"], // 1 Helmintosporiosis
-    ["Rhynchosporium secalis Cebada", ""], // 2 Rincosporiosis
+    ["Rhynchosporium secalis Cebada"], // 2 Rincosporiosis
     ["Blumeria graminis Cebada"], // 3 oidio
     ["Stem rust Cebada", "Puccinia hordei Cebada"], //4 Roya amarilla o anaranjada
     [
       "Ramularia collo-cygni Cebada",
       "Plant pathology Cebada",
       "Ramularia Cebada",
-    ], // 5 Ramularia
+    ], // 5 Ramularia.
 
     ["Septoria", "Zymoseptoria tritici"], // 6 Septoria // oki Diccionario Cebada.
   ]); //
