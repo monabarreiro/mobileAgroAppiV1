@@ -1,19 +1,21 @@
 import {
-    Roboto_400Regular,
-    Roboto_700Bold,
-    useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+  useFonts,
 } from "@expo-google-fonts/roboto";
 import React from "react";
 import Footer from "./footer";
 
 import {
-    Image,
-    ImageBackground,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
+
 
 export default function Home() {
   let [fontsLoaded] = useFonts({
@@ -64,7 +66,7 @@ export default function Home() {
               width: "100%",
             }}
           >
-            <Text style={{ fontSize: 20, fontFamily: "Roboto_400Regular" }}>
+            <Text style={{ fontSize: 12, fontFamily: "Roboto_400Regular" }}>
               <br />
               <br />
               <br />
@@ -94,6 +96,24 @@ export default function Home() {
                 Te: +54 9 11 4479-0260 <br />
                 Contacto: Mónica Barreiro <br />
               </Text>
+              <Text>Nombre</Text>
+
+              <input></input>
+
+              <Text>email</Text>
+
+              <input></input>
+
+              <Text>Teléfono</Text>
+
+              <input></input>
+
+              <Text>Mensaje</Text>
+
+              <input></input>
+              <TouchableOpacity>
+                <Text>Enviar formulario</Text>
+              </TouchableOpacity>
             </View>
           </div>
         </View>
