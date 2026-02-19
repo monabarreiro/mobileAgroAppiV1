@@ -11,14 +11,16 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mobileagroappi.app",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./google-services.json"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.mobileagroappi.app"
     },
     "web": {
       "bundler": "metro",
@@ -46,6 +48,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "0ef31c34-ef00-4fa8-8ade-0b9add4d9d54"
+      }
     }
   }
 }

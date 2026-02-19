@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "137817998022",
+    "firebase_url": "https://plataformas-agroappi-default-rtdb.firebaseio.com",
+    "project_id": "plataformas-agroappi",
+    "storage_bucket": "plataformas-agroappi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137817998022:android:d0ea3f0c8622d03b5c0dc7",
+        "android_client_info": {
+          "package_name": "com.mobileagroappi.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137817998022-rv2d1t9282q0p984a2ftvj39tj7oqk9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnb41zi1i_Vrz2duBFG8SesQEBEtNX9Jg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137817998022-qbcp5bo1jjsv24e147u51bgj0l0dti3e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mobileagroappi.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
