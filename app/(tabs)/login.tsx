@@ -8,6 +8,14 @@ import {
   signInWithCredential,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import {
+  ImageBackground,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import {
   collection,
@@ -17,13 +25,6 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useEffect } from "react";
-import {
-  ImageBackground,
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
 import { auth } from "./firebaseNetlify";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -73,7 +74,6 @@ export default function Login() {
     }
   }, [id]);
 
-  console.log("appiKey", process.env.EXPO_PUBLIC_FIREBASE_API_KEY);
   const redirectUri =
     Platform.OS === "web"
       ? undefined
@@ -85,6 +85,8 @@ export default function Login() {
       "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
     webClientId:
       "137817998022-qbcp5bo1jjsv24e147u51bgj0l0dti3e.apps.googleusercontent.com",
+    androidClientId:
+      "137817998022-1rbjodco8a20407kp8nbd1g74ebmnaft.apps.googleusercontent.com",
 
     scopes: ["openid", "profile", "email"],
     responseType: "id_token",
@@ -134,20 +136,25 @@ export default function Login() {
         height: "100%",
       }}
     >
-      <View style={{ width: "50%" }}>
-        <div
+      <View style={{}}>
+        <View
           style={{
-            flex: 1,
             backgroundColor: "#A4C3B2",
             padding: 10,
-            textAlign: "center",
             borderRadius: 10,
             width: "100%",
           }}
         >
-          <h1 style={{ fontSize: 24, fontWeight: "bold", marginBottom: 30 }}>
+          <Text
+            style={{
+              color: "#121812",
+              fontSize: 24,
+              fontWeight: "bold",
+              marginBottom: 30,
+            }}
+          >
             Iniciar Sesión
-          </h1>
+          </Text>
           <View
             style={{
               flexDirection: "column",
@@ -156,27 +163,25 @@ export default function Login() {
               justifyContent: "center",
             }}
           >
-            <input
-              type="email"
+            <TextInput
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChangeText={setEmail}
               style={{
                 padding: 10,
                 borderRadius: 5,
-                border: "1px solid #ccc",
+
                 width: "80%",
               }}
             />
-            <input
-              type="password"
+            <TextInput
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChangeText={setPassword}
               style={{
                 padding: 10,
                 borderRadius: 5,
-                border: "1px solid #ccc",
+
                 width: "80%",
               }}
             />
@@ -237,8 +242,10 @@ export default function Login() {
               Si no estás registrado, haz click aquí para registrarte
             </Text>
           </TouchableOpacity>
-          {error && <p>{error}</p>}
-        </div>
+          {error && (
+            <Text style={{ color: "red", marginTop: 10 }}>{error}</Text>
+          )}
+        </View>
       </View>
     </ImageBackground>
   );

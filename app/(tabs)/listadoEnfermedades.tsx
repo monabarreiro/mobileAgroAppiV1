@@ -166,21 +166,40 @@ export default function ListadoEnfermedades() {
     }
   };
   const pushHistorialArray = async (url: string, titulo: string) => {
-    setHistorialArray((prev) => {
+    try {
+      const historial = await AsyncStorage.getItem("historial");
+
+      let parsed = historial ? JSON.parse(historial) : [];
+
+      // eliminar el falso historial vacío si existe
+      parsed = parsed.filter((item: any) => item.url !== "Historial Vacío");
+
       const updated = [
-        ...prev,
-        { url, nombre: titulo, fecha: new Date().toISOString() },
+        ...parsed,
+        {
+          url,
+          nombre: titulo,
+          fecha: new Date().toISOString(),
+        },
       ];
 
-      AsyncStorage.setItem("historial", JSON.stringify(updated));
-      return updated;
-    });
-  };
+      await AsyncStorage.setItem("historial", JSON.stringify(updated));
 
+      setHistorialArray(updated);
+    } catch (error) {
+      console.log("Error guardando historial:", error);
+    }
+  };
   return (
-    <ScrollView>
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+
+        alignItems: "center",
+      }}
+    >
       <TouchableOpacity
-        style={{ marginTop: 20, marginLeft: 40 }}
+        style={{ marginTop: 30, marginLeft: 30, alignSelf: "flex-start" }}
         onPress={() => router.push(`/(tabs)/SeleccionarCultivos`)}
       >
         <Image
@@ -200,10 +219,11 @@ export default function ListadoEnfermedades() {
           alignItems: "center",
           justifyContent: "center",
           gap: 20,
-          marginTop: 20,
+          marginTop: 10,
+          width: "100%",
         }}
       >
-        <Text style={{ fontSize: 40, fontWeight: "bold", textAlign: "center" }}>
+        <Text style={{ fontSize: 32, fontWeight: "bold", textAlign: "center" }}>
           Listado de Enfermedades
         </Text>
 
@@ -211,7 +231,7 @@ export default function ListadoEnfermedades() {
           source={textoImagen}
           style={{ width: 200, height: 200, borderRadius: 20 }}
         />
-        <Text style={{ fontSize: 40, fontWeight: "bold", textAlign: "center" }}>
+        <Text style={{ fontSize: 32, fontWeight: "bold", textAlign: "center" }}>
           {cultivoId}
         </Text>
         {enfermedades.map((enfermedad, index) => (
@@ -243,15 +263,26 @@ export default function ListadoEnfermedades() {
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity onPress={() => refreshCultivos()}>
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+        <TouchableOpacity
+          onPress={() => refreshCultivos()}
+          style={{
+            backgroundColor: "#507866",
+            padding: 10,
+            borderRadius: 10,
+            width: "80%",
+            alignItems: "center",
+            marginTop: 30,
+          }}
+        >
+          <Text style={{ fontSize: 18, fontWeight: "bold", color: "white" }}>
             Volver a la lista de cultivos
           </Text>
         </TouchableOpacity>
-        <br />
-        <br />
-        <br />
-        <br />
+        <View style={{ height: 40 }} />
+        <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>
+          {"\n"}
+          {"\n"}
+        </Text>
         <Footer />
       </View>
     </ScrollView>

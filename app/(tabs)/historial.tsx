@@ -4,9 +4,10 @@ import {
   useFonts,
 } from "@expo-google-fonts/roboto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useRouter } from "expo-router";
 import React from "react";
-import { ScrollView, Text, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Footer from "./footer";
 
 export default function Historial() {
@@ -23,6 +24,7 @@ export default function Historial() {
   const iniciarHistorial = async () => {
     try {
       let historial = await AsyncStorage.getItem("historial");
+      console.log("Valor crudo AsyncStorage:", historial);
       if (historial) {
         const parsedHistorial: {
           url: string;
@@ -45,15 +47,13 @@ export default function Historial() {
     }
   };
   const pushHistorialArray = async (url: string, titulo: string) => {
-    setHistorialArray((prev) => {
-      const updated = [
-        ...prev,
-        { url, nombre: titulo, fecha: new Date().toISOString() },
-      ];
+    const updated = await Promise.resolve(historialArray).then((prev) => [
+      ...prev,
+      { url, nombre: titulo, fecha: new Date().toISOString() },
+    ]);
 
-      AsyncStorage.setItem("historial", JSON.stringify(updated));
-      return updated;
-    });
+    await AsyncStorage.setItem("historial", JSON.stringify(updated));
+    setHistorialArray(updated);
   };
 
   const generarTextoHistorial = (url: string) => {
@@ -101,10 +101,13 @@ export default function Historial() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <br />
-      <br />
-      <br />
-      <br />
+      <Text>
+        {"\n"}
+        {"\n"}
+        {"\n"}
+        {"\n"}
+      </Text>
+      <View style={{ marginBottom: 10, justifyContent: "center" }}></View>
       <Footer />
     </ScrollView>
   );

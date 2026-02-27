@@ -3,12 +3,12 @@ import {
   Roboto_700Bold,
   useFonts,
 } from "@expo-google-fonts/roboto";
+import { getAuth } from "firebase/auth";
 import { ScrollView, Text, View } from "react-native";
-import { auth } from "./firebaseNetlify";
 import Footer from "./footer";
 
 export default function InfoPersonal() {
-  const user = auth.currentUser;
+  const user = getAuth().currentUser;
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
@@ -36,11 +36,14 @@ export default function InfoPersonal() {
           email: {user?.email}
         </Text>
       </View>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <Text>
+        {"\n"}
+        {"\n"}
+        {"\n"}
+        {"\n"}
+        {"\n"}
+        {"\n"}
+      </Text>
       <Footer />
     </ScrollView>
   );

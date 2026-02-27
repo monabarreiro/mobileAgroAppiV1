@@ -10,7 +10,10 @@ import * as imagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Linking, Text, TouchableOpacity, View } from "react-native"; // Modulos necesarios
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from "react-native-gesture-handler";
 
 export default function BuscarImagen() {
   const router = useRouter();
@@ -270,116 +273,185 @@ export default function BuscarImagen() {
       style={{ flex: 1, padding: 10 }}
       resizeMode="cover"
     >
-      <ScrollView style={{ flex: 1 }}>
-        <div
-          style={{
-            flex: 1,
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            padding: 10,
-            textAlign: "center",
-            borderRadius: 10,
-          }}
-        >
-          <TouchableOpacity onPress={() => router.push("/SeleccionarCultivos")}>
-            <Image
-              style={{ width: 50, height: 50, marginBottom: 10 }}
-              source={require("./img/volver.png")}
-            />
-          </TouchableOpacity>
-
-          <View>
-            <Text
-              style={{
-                fontFamily: "Roboto_700Bold",
-                color: "black",
-                fontSize: 24,
-                fontWeight: "bold",
-                textAlign: "center",
-                marginTop: 20,
-                marginBottom: 20,
-              }}
-            >
-              Subir imagen del Cultivo: {cultivoId.toUpperCase()}
-            </Text>
-            <Image
-              source={require("./img/sacarFoto.png")}
-              style={{
-                width: 100,
-                height: 100,
-                alignSelf: "center",
-                marginBottom: 10,
-                justifyContent: "center",
-              }}
-            />
-          </View>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
           <View
             style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: 20,
+              flex: 1,
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              padding: 10,
+
+              borderRadius: 10,
             }}
           >
             <TouchableOpacity
-              style={{
-                backgroundColor: "#27352F",
-                padding: 10,
-                borderRadius: 20,
-                width: "80%",
-                justifyContent: "center",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.3,
-                margin: 15,
-                shadowRadius: 4,
-              }}
-              onPress={openCamara}
+              onPress={() => router.push("/SeleccionarCultivos")}
             >
-              <Text
-                style={{
-                  color: "#F6FFF8",
-                  fontFamily: "Roboto_700Bold",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}
-              >
-                Tomá una foto con la cámara
-              </Text>
+              <Image
+                style={{ width: 50, height: 50, marginBottom: 10 }}
+                source={require("./img/volver.png")}
+              />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#27352F",
-                padding: 10,
-                borderRadius: 20,
-                width: "80%",
-                justifyContent: "center",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.3,
-                shadowRadius: 4,
-              }}
-              onPress={pickImage}
-            >
+            <View>
               <Text
                 style={{
-                  color: "#F6FFF8",
                   fontFamily: "Roboto_700Bold",
-                  fontSize: 20,
+                  color: "black",
+                  fontSize: 24,
                   fontWeight: "bold",
                   textAlign: "center",
-                  marginTop: 10,
-                  marginBottom: 10,
+                  marginTop: 20,
+                  marginBottom: 20,
                 }}
               >
-                Subí tu imagen desde galería
+                Subir imagen del Cultivo: {cultivoId.toUpperCase()}
               </Text>
-            </TouchableOpacity>
-          </View>
+              <Image
+                source={require("./img/sacarFoto.png")}
+                style={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  marginBottom: 10,
+                  justifyContent: "center",
+                }}
+              />
+            </View>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 20,
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#27352F",
+                  padding: 10,
+                  borderRadius: 20,
+                  width: "80%",
+                  justifyContent: "center",
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  margin: 15,
+                  shadowRadius: 4,
+                }}
+                onPress={openCamara}
+              >
+                <Text
+                  style={{
+                    color: "#F6FFF8",
+                    fontFamily: "Roboto_700Bold",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}
+                >
+                  Tomá una foto con la cámara
+                </Text>
+              </TouchableOpacity>
 
-          {loading && (
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#27352F",
+                  padding: 10,
+                  borderRadius: 20,
+                  width: "80%",
+                  justifyContent: "center",
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 4,
+                }}
+                onPress={pickImage}
+              >
+                <Text
+                  style={{
+                    color: "#F6FFF8",
+                    fontFamily: "Roboto_700Bold",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: 10,
+                    marginBottom: 10,
+                  }}
+                >
+                  Subí tu imagen desde galería
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {loading && (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  marginBottom: 20,
+                }}
+              >
+                <Image
+                  source={require("./img/logo_agroAppi.png")}
+                  style={{ width: 100, height: 100, alignSelf: "center" }}
+                />
+
+                <Text
+                  style={{
+                    fontFamily: "Roboto_400Regular",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: 10,
+                  }}
+                >
+                  {" "}
+                  Analizando imagen, por favor espera...
+                </Text>
+              </View>
+            )}
+            {labels.map((label, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => textoAGoogle(label + " " + cultivoId)}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Roboto_400Regular",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+
+            {textoPosiblesEnfermedades.map((enlace, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() =>
+                  router.push(textoPosiblesEnfermedades[index] as any)
+                }
+              >
+                <Text
+                  style={{
+                    fontFamily: "Roboto_400Regular",
+                    fontSize: 20,
+                    color: "blue",
+                    textDecorationLine: "underline",
+                    textAlign: "center",
+                    marginTop: 10,
+                  }}
+                >
+                  Solución posible (Presiona aquí)
+                </Text>
+              </TouchableOpacity>
+            ))}
             <View
               style={{
                 alignItems: "center",
@@ -388,123 +460,58 @@ export default function BuscarImagen() {
                 marginBottom: 20,
               }}
             >
-              <Image
-                source={require("./img/logo_agroAppi.png")}
-                style={{ width: 100, height: 100, alignSelf: "center" }}
-              />
-
-              <Text
+              <TouchableOpacity
                 style={{
-                  fontFamily: "Roboto_400Regular",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  marginTop: 10,
+                  backgroundColor: "#A4C3B2",
+                  padding: 10,
+                  borderRadius: 20,
+                  width: "80%",
+                  justifyContent: "center",
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 4,
                 }}
+                onPress={() =>
+                  router.push(
+                    `/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivoId)}`,
+                  )
+                }
               >
-                {" "}
-                Analizando imagen, por favor espera...
-              </Text>
+                <Text
+                  style={{
+                    fontFamily: "Roboto_700Bold",
+                    fontSize: 20,
+                    color: "#27352F",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: 20,
+                  }}
+                >
+                  Ir al listado de enfermedades
+                </Text>
+              </TouchableOpacity>
             </View>
-          )}
-          {labels.map((label, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => textoAGoogle(label + " " + cultivoId)}
-            >
-              <Text
-                style={{
-                  fontFamily: "Roboto_400Regular",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                {label}
-              </Text>
-            </TouchableOpacity>
-          ))}
 
-          {textoPosiblesEnfermedades.map((enlace, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() =>
-                router.push(textoPosiblesEnfermedades[index] as any)
-              }
-            >
-              <Text
-                style={{
-                  fontFamily: "Roboto_400Regular",
-                  fontSize: 20,
-                  color: "blue",
-                  textDecorationLine: "underline",
-                  textAlign: "center",
-                  marginTop: 10,
-                }}
-              >
-                Solución posible (Presiona aquí)
-              </Text>
-            </TouchableOpacity>
-          ))}
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 20,
-              marginBottom: 20,
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#F6FFF8",
-                padding: 10,
-                borderRadius: 20,
-                width: "80%",
-                justifyContent: "center",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.3,
-                shadowRadius: 4,
-              }}
-              onPress={() =>
-                router.push(
-                  `/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivoId)}`,
-                )
-              }
-            >
-              <Text
-                style={{
-                  fontFamily: "Roboto_700Bold",
-                  fontSize: 20,
-                  color: "#27352F",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  marginTop: 20,
-                }}
-              >
-                Ir al listado de enfermedades
-              </Text>
-            </TouchableOpacity>
+            {enfermedadDetectada === true &&
+              textoPosiblesEnfermedades.length === 0 && (
+                <Text
+                  style={{
+                    fontFamily: "Roboto_700Bold",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: 20,
+                    color: "red",
+                  }}
+                >
+                  No se detectaron enfermedades conocidas para {cultivoId}.
+                  Intente con otra imagen o vaya al listado de enfermedades.
+                </Text>
+              )}
           </View>
-
-          {enfermedadDetectada === true &&
-            textoPosiblesEnfermedades.length === 0 && (
-              <Text
-                style={{
-                  fontFamily: "Roboto_700Bold",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  marginTop: 20,
-                  color: "red",
-                }}
-              >
-                No se detectaron enfermedades conocidas para {cultivoId}.
-                Intente con otra imagen o vaya al listado de enfermedades.
-              </Text>
-            )}
-        </div>
-      </ScrollView>
+        </ScrollView>
+      </GestureHandlerRootView>
     </ImageBackground>
   );
 }

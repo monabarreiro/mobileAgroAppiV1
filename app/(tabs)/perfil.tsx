@@ -5,6 +5,8 @@ import {
 } from "@expo-google-fonts/roboto";
 import { useRouter } from "expo-router";
 import React from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Footer from "./footer";
 
@@ -14,6 +16,15 @@ export default function Perfil() {
     Roboto_700Bold,
   });
   const router = useRouter();
+  React.useEffect(() => {
+    const test = async () => {
+      await AsyncStorage.setItem("testKey", "funciona");
+      const value = await AsyncStorage.getItem("testKey");
+      console.log("TEST VALUE:", value);
+    };
+
+    test();
+  }, []);
   return (
     <ScrollView style={{ height: "100%" }}>
       <View
@@ -45,9 +56,10 @@ export default function Perfil() {
         >
           Nombre
         </Text>
-        <br />
-        <br />
-
+        <Text>
+          {"\n"}
+          {"\n"}
+        </Text>
         <Text
           style={{
             fontSize: 16,
@@ -62,9 +74,6 @@ export default function Perfil() {
             borderRadius: 5,
             width: "80%",
             alignItems: "center",
-          }}
-          onPress={() => {
-            router.push("/infoPersonal");
           }}
         >
           <Text
@@ -164,15 +173,17 @@ export default function Perfil() {
             Ajustes
           </Text>
         </TouchableOpacity>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        <Text>
+          {"\n"}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+        </Text>
       </View>
 
       <Footer />

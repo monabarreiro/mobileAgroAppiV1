@@ -4,8 +4,6 @@ import {
   useFonts,
 } from "@expo-google-fonts/roboto";
 import React, { useState } from "react";
-import Footer from "./footer";
-
 import {
   Image,
   ImageBackground,
@@ -13,9 +11,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import Footer from "./footer";
 
 export default function Home() {
   let [fontsLoaded] = useFonts({
@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <ScrollView
       contentContainerStyle={{
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: "#6B9080",
         alignItems: "center",
       }}
@@ -44,8 +44,8 @@ export default function Home() {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            width: "50%",
-            padding: 20,
+            width: "80%",
+            padding: 0,
           }}
         >
           <Text
@@ -60,29 +60,25 @@ export default function Home() {
             style={{ width: 100, height: 100 }}
             source={require("./img/casita.png")}
           />
-          <div
+          <View
             style={{
               flex: 1,
               backgroundColor: "rgba(164, 195, 178, 0.8)",
               padding: 10,
-              textAlign: "center",
+
               borderRadius: 10,
               width: "100%",
             }}
           >
-            <Text style={{ fontSize: 12, fontFamily: "Roboto_400Regular" }}>
-              <br />
-              <br />
-              <br />
+            <Text style={{ fontSize: 14, fontFamily: "Roboto_400Regular" }}>
+              <Text>{"\n"} </Text>
               Bienvenido a AgroAppi, tu compañero digital para el cuidado de tus
-              cultivos. Aquí encontrarás información detallada sobre las
-              enfermedades que afectan a tus plantas, así como recomendaciones
-              de productos para combatirlas. Explora nuestra sección de
-              enfermedades para identificar los problemas que puedan estar
-              afectando a tus cultivos y descubre las mejores soluciones para
-              mantenerlos saludables y productivos.
-              <br />
-              <br />
+              cultivos. Encontrarás información detallada sobre las enfermedades
+              que afectan a tus plantas, así como recomendaciones de productos
+              para combatirlas. Explora nuestra sección de enfermedades para
+              identificar los problemas que puedan estar afectando a tus
+              cultivos y descubre las mejores soluciones para mantenerlos
+              saludables y productivos.
             </Text>
             <View style={{ padding: 10, alignItems: "flex-start" }}>
               <Text style={{ fontSize: 20, fontFamily: "Roboto_700Bold" }}>
@@ -95,46 +91,70 @@ export default function Home() {
                   textAlign: "left",
                 }}
               >
-                <br />
-                email: info@agroappi.com.ar <br />
-                Te: +54 9 11 4479-0260 <br />
-                Contacto: Mónica Barreiro <br />
+                {"\n"}
+                email: info@agroappi.com.ar {"\n"}
+                Te: +54 9 11 4479-0260 {"\n"}
+                Contacto: Mónica Barreiro {"\n"}
               </Text>
               <Text>Nombre</Text>
 
-              <input
-                type="nombre"
-                placeholder="Nombre"
+              <TextInput
+                style={{
+                  backgroundColor: "white",
+                  padding: 8,
+                  borderRadius: 5,
+                  width: "100%",
+                  marginBottom: 10,
+                }}
+                placeholder="Nombre..."
                 value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-              ></input>
+                onChangeText={setNombre}
+              ></TextInput>
 
               <Text>email</Text>
 
-              <input
-                type="email"
+              <TextInput
+                style={{
+                  backgroundColor: "white",
+                  padding: 8,
+                  borderRadius: 5,
+                  width: "100%",
+                  marginBottom: 10,
+                }}
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
+                onChangeText={setEmail}
+              ></TextInput>
 
               <Text>Teléfono</Text>
 
-              <input
-                type="telefono"
+              <TextInput
+                style={{
+                  backgroundColor: "white",
+                  padding: 8,
+                  borderRadius: 5,
+                  width: "100%",
+                  marginBottom: 10,
+                }}
                 placeholder="Teléfono"
                 value={telefono}
-                onChange={(e) => setTelefono(e.target.value)}
-              ></input>
+                onChangeText={setTelefono}
+              ></TextInput>
 
               <Text>Mensaje</Text>
 
-              <input
-                type="mensaje"
+              <TextInput
+                style={{
+                  backgroundColor: "white",
+                  padding: 8,
+                  borderRadius: 5,
+                  width: "100%",
+                  marginBottom: 10,
+                }}
                 placeholder="Mensaje"
                 value={mensaje}
-                onChange={(e) => setMensaje(e.target.value)}
-              ></input>
+                onChangeText={setMensaje}
+              ></TextInput>
               <TouchableOpacity
                 onPress={(e) =>
                   Linking.openURL(
@@ -142,15 +162,28 @@ export default function Home() {
                   )
                 }
               >
-                <Text>Enviar formulario</Text>
+                <View
+                  style={{
+                    backgroundColor: "#084006",
+                    padding: 10,
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text style={{ color: "white", fontWeight: "bold" }}>
+                    Enviar formulario
+                  </Text>
+                </View>
               </TouchableOpacity>
             </View>
-          </div>
+          </View>
         </View>
-        <br />
-        <br />
-        <br />
-        <br />
+        <Text>
+          {" "}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+          {"\n"}
+        </Text>
         <Footer />
       </ImageBackground>
     </ScrollView>

@@ -1,17 +1,19 @@
 import {
-    Roboto_400Regular,
-    Roboto_700Bold,
-    useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+  useFonts,
 } from "@expo-google-fonts/roboto";
 import { useRouter } from "expo-router";
 import {
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from "react-native";
 
 import { useState } from "react";
+import Footer from "./footer";
 
 export default function Ajustes() {
   const [nombre, setNombre] = useState("");
@@ -66,6 +68,14 @@ export default function Ajustes() {
           Editar Perfil
         </Text>
       </TouchableOpacity>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 50,
+        }}
+      ></View>
+      <Footer></Footer>
     </ScrollView>
   );
 }

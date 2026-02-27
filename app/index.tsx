@@ -35,7 +35,7 @@ export default function HomeScreen() {
   }, []);
   return (
     <ImageBackground
-      source={require("./img/fondo_trigo.png")}
+      source={require("./(tabs)/img/fondo_trigo.png")}
       style={styles.imageBackground}
     >
       <View
@@ -47,7 +47,7 @@ export default function HomeScreen() {
         }}
       >
         <Image
-          source={require("./img/logo_agroAppi.png")}
+          source={require("./(tabs)/img/logo_agroAppi.png")}
           style={{ width: 70, height: 50 }}
         />
 
@@ -64,7 +64,7 @@ export default function HomeScreen() {
           la aplicación que descifra las enfermedades {"\n"}
           de tus cultivos y te ofrece soluciones efectivas para un mejor rinde.
           {"\n"}
-          <br />
+          {"\n"}
           SIEMPRE GRATIS DESDE QUE LA BAJAS HASTA CUANDO LA USAS.
         </Text>
 

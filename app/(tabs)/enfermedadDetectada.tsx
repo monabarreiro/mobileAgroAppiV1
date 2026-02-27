@@ -8,7 +8,7 @@ import { useFonts } from "expo-font";
 import { useRouter } from "expo-router";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import React, { useCallback, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Footer from "./footer";
 
 export default function EnfermedadDetectada() {
@@ -104,13 +104,16 @@ export default function EnfermedadDetectada() {
     }, [enfermedadId, cultivoId]),
   );
   return (
-    <View style={{ height: "100%" }}>
+    <ScrollView style={{ flexGrow: 1 }}>
       <TouchableOpacity
         style={{ marginTop: 40, marginLeft: 20 }}
         onPress={() =>
-          router.push(
-            `/listadoEnfermedades?cultivoId=${encodeURIComponent(cultivoId || "")}`,
-          )
+          router.push({
+            pathname: `/listadoEnfermedades`,
+            params: {
+              cultivoId: cultivoId || "",
+            },
+          })
         }
       >
         <Image
@@ -126,8 +129,6 @@ export default function EnfermedadDetectada() {
         ></Text>
       </TouchableOpacity>
 
-      <br />
-      <br />
       <Text
         style={{
           fontFamily: "Roboto_400Regular",
@@ -138,7 +139,7 @@ export default function EnfermedadDetectada() {
       >
         Enfermedad Detectada{" "}
       </Text>
-      <br />
+
       {enfermedades[mostrarEnf] && (
         <TouchableOpacity
           style={{
@@ -162,13 +163,12 @@ export default function EnfermedadDetectada() {
           >
             {enfermedades[mostrarEnf].Titulo}
           </Text>
-          <br />
 
           <Text
             style={{
               fontFamily: "Roboto_400Regular",
-              marginLeft: 50,
-              marginRight: 50,
+              marginLeft: 20,
+              marginRight: 20,
             }}
           >
             {enfermedades[mostrarEnf].a}
@@ -217,14 +217,16 @@ export default function EnfermedadDetectada() {
           marginBottom: 20,
         }}
       >
-        <br />
-        <br />
+        <Text>
+          {"\n"}
+          {"\n"}
+        </Text>
       </View>
-
-      <br />
-      <br />
-      <br />
-
+      <Text>
+        {"\n"}
+        {"\n"}
+        {"\n"}
+      </Text>
       {/* <TouchableOpacity
         style={{ marginTop: 40, marginLeft: 20 }}
         onPress={() =>
@@ -250,6 +252,6 @@ export default function EnfermedadDetectada() {
       {/* Agregar más contenido aquí si es necesario */}
 
       <Footer />
-    </View>
+    </ScrollView>
   );
 }

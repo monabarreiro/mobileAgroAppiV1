@@ -43,6 +43,8 @@ export default function Register() {
       "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
     webClientId:
       "137817998022-qbcp5bo1jjsv24e147u51bgj0l0dti3e.apps.googleusercontent.com",
+    androidClientId:
+      "137817998022-1rbjodco8a20407kp8nbd1g74ebmnaft.apps.googleusercontent.com",
 
     scopes: ["openid", "profile", "email"],
     responseType: "id_token",

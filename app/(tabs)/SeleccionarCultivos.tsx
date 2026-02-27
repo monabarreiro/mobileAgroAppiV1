@@ -141,15 +141,21 @@ export default function SeleccionarCultivos() {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: "#27352F" }}>
+    <ScrollView
+      style={{ backgroundColor: "#27352F" }}
+      contentContainerStyle={{
+        flexGrow: 1,
+        alignItems: "center",
+      }}
+    >
       <Text
         style={{
           color: "white",
-          fontSize: 20,
+          fontSize: 24,
           fontWeight: "bold",
           textAlign: "center",
           marginTop: 15,
-          marginBottom: 10,
+          marginBottom: 3,
           fontFamily: "Roboto_700Bold",
         }}
       >
@@ -164,16 +170,16 @@ export default function SeleccionarCultivos() {
           marginTop: 10,
           marginBottom: 10,
           fontFamily: "Roboto_400Regular",
+          marginHorizontal: 20,
         }}
       >
-        En esta página podrás seleccionar el cultivo que deseas analizar.{"\n"}
-        Presiona el botón del cultivo elegido y en el siguiente paso, {"\n"}
-        Subí una foto del cultivo afectado. {"\n"}
-        Presioná el botón de Summit y espera los resultados. {"\n"}y
-        posteriormente la aplicación te brindará un diagnóstico preciso y {"\n"}
-        recomendaciones para tratar la enfermedad detectada.{"\n"}
+        En esta página podrás seleccionar el cultivo que deseas analizar.
+        Presiona el botón del cultivo elegido y en el siguiente paso, Subí una
+        foto del cultivo afectado. Presioná el botón de Summit y espera los
+        resultados. Y posteriormente la aplicación te brindará un diagnóstico
+        preciso y recomendaciones para tratar la enfermedad detectada.
       </Text>
-      <div
+      <View
         style={{
           flex: 2,
           backgroundColor: "rgba(255, 255, 255, 0.8)",
@@ -290,7 +296,7 @@ export default function SeleccionarCultivos() {
             />
           </TouchableOpacity>
         </View>
-      </div>
+      </View>
 
       <TouchableOpacity
         style={{}}
