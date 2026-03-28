@@ -1,11 +1,7 @@
 import { ImageBackground } from "expo-image";
 import { useRouter } from "expo-router";
 import {
-  browserLocalPersistence,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  setPersistence,
-  signInWithPopup,
+  createUserWithEmailAndPassword
 } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import React from "react";
@@ -30,7 +26,6 @@ export default function Register() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
-  setPersistence(auth, browserLocalPersistence);
 
   const redirectUri =
     Platform.OS === "web"
@@ -51,10 +46,6 @@ export default function Register() {
 
     redirectUri, // ver que es
   });
-  const ingresarConGoogle = async () => {
-    const Provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, Provider);
-  };
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
@@ -145,7 +136,7 @@ export default function Register() {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button title="Register" onPress={crearUsuarioDb} />
+        <Button title="Register" onPress={handleRegister} />
 
         <TouchableOpacity
           style={{

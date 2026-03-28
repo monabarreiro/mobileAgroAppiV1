@@ -1,16 +1,15 @@
-import * as AuthSession from "expo-auth-session";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
-
-import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithCredential,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+
+import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   ImageBackground,
-  Platform,
   Text,
   TextInput,
   TouchableOpacity,
@@ -38,6 +37,7 @@ export default function Login() {
     id?: string | string[];
   };
   const { id } = useLocalSearchParams<params>();
+
   const handleLoginDb = async (e: any) => {
     e.preventDefault();
     try {
@@ -74,24 +74,13 @@ export default function Login() {
     }
   }, [id]);
 
-  const redirectUri =
-    Platform.OS === "web"
-      ? undefined
-      : AuthSession.makeRedirectUri({
-          scheme: "mobileagroappi",
-        });
   const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId:
+      "137817998022-1rbjodco8a20407kp8nbd1g74ebmnaft.apps.googleusercontent.com",
     iosClientId:
       "137817998022-m7bvtv92p9qc7l86nmt261c30m8misbo.apps.googleusercontent.com",
     webClientId:
       "137817998022-qbcp5bo1jjsv24e147u51bgj0l0dti3e.apps.googleusercontent.com",
-    androidClientId:
-      "137817998022-1rbjodco8a20407kp8nbd1g74ebmnaft.apps.googleusercontent.com",
-
-    scopes: ["openid", "profile", "email"],
-    responseType: "id_token",
-
-    redirectUri,
   });
 
   //const auth = getAuth();
@@ -107,7 +96,8 @@ export default function Login() {
     }
   };
   const recuperarContrasena = () => {
-    router.push("/recuperarContraseña");
+    sendPasswordResetEmail(auth, email);
+    alert("Correo de recuperación de contraseña enviado.");
   };
   useEffect(() => {
     if (response?.type === "success") {
@@ -121,6 +111,7 @@ export default function Login() {
           router.push("/SeleccionarCultivos");
         })
         .catch((err) => setError(err.message));
+
       router.push("/SeleccionarCultivos");
     }
   }, [response]);
@@ -176,6 +167,7 @@ export default function Login() {
             />
             <TextInput
               placeholder="Password"
+              secureTextEntry={true}
               value={password}
               onChangeText={setPassword}
               style={{
@@ -192,12 +184,12 @@ export default function Login() {
                 backgroundColor: "#27352F",
                 borderRadius: 5,
               }}
-              onPress={(e) => handleLoginDb(e)}
+              onPress={(e) => handleLogin(e)}
             >
               <Text style={{ color: "white", fontSize: 16 }}>Login</Text>
             </TouchableOpacity>
           </View>
-
+          {/* 
           <TouchableOpacity
             style={{
               marginTop: 20,
@@ -212,7 +204,7 @@ export default function Login() {
               Login con Google
             </Text>
           </TouchableOpacity>
-
+*/}
           <TouchableOpacity
             style={{
               marginTop: 20,

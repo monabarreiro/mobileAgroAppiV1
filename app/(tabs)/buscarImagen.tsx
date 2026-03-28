@@ -74,16 +74,11 @@ export default function BuscarImagen() {
     ["Filoxera Uva"], // 6. Filoxera. // ok Diccionario Uva.
   ]); //
   const [diccionarioCebada, setdiccionarioCebada] = React.useState<string[][]>([
-    ["Helminthosporium Cebada", "Pyrenophora teres Cebada"], // 1 Helmintosporiosis
-    ["Rhynchosporium secalis Cebada"], // 2 Rincosporiosis
-    ["Blumeria graminis Cebada"], // 3 oidio
-    ["Stem rust Cebada", "Puccinia hordei Cebada"], //4 Roya amarilla o anaranjada
-    [
-      "Ramularia collo-cygni Cebada",
-      "Plant pathology Cebada",
-      "Ramularia Cebada",
-    ], // 5 Ramularia.
-
+    ["Helminthosporium", "Pyrenophora teres"], // 1 Helmintosporiosis
+    ["Rhynchosporium secalis"], // 2 Rincosporiosis
+    ["Blumeria", "Blumeria graminis"], // 3 oidio
+    ["Stem rust", "Puccinia hordei"], //4 Roya amarilla o anaranjada
+    ["Ramularia collo-cygni", "Ramularia"], // 5 Ramularia
     ["Septoria", "Zymoseptoria tritici"], // 6 Septoria // oki Diccionario Cebada.
   ]); //
   let listaDiccionarios: string[][][] = [

@@ -75,6 +75,9 @@ export default function Perfil() {
             width: "80%",
             alignItems: "center",
           }}
+          onPress={() => {
+            router.push("/infoPersonal");
+          }}
         >
           <Text
             style={{
